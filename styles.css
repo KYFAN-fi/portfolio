@@ -418,7 +418,7 @@
             position: relative;
             background:
                 linear-gradient(rgba(5, 9, 8, 0.48), rgba(5, 9, 8, 0.72)),
-                url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;
+                url("./logo-kyfan-tc.png") center/cover no-repeat;
         }
 
         .visual-main .overlay-text {
@@ -1014,14 +1014,14 @@
         /* CTA HOTLINE + ZALO */
         .btn-zalo {
             color: var(--white-soft);
-            border-color: rgba(27, 214, 160, 0.32);
-            background: linear-gradient(135deg, rgba(27, 214, 160, 0.14), rgba(15, 91, 69, 0.34));
+            border-color: rgb(31, 140, 241);
+            background: linear-gradient(135deg, rgb(23, 138, 245), rgb(23, 93, 185));
             box-shadow: var(--shadow-emerald);
         }
 
         .btn-zalo:hover {
             transform: translateY(-3px);
-            border-color: rgba(212, 170, 69, 0.28);
+            border-color: rgba(36, 124, 73, 0.664);
             box-shadow: var(--shadow-gold), var(--shadow-emerald);
         }
 
