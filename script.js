@@ -1,118 +1,117 @@
-// Cursor glow
-const glow = document.querySelector(".cursor-glow");
-document.addEventListener("mousemove", (e) => {
-  glow.style.left = e.clientX + "px";
-  glow.style.top = e.clientY + "px";
-});
+(() => {
+  const accordionItems = [...document.querySelectorAll(".accordion-item")];
+  const navLinks = [...document.querySelectorAll(".nav-link")];
+  const statNumbers = [...document.querySelectorAll("[data-count]")];
 
-// Reveal on scroll
-const revealItems = document.querySelectorAll(".reveal");
-const revealOnScroll = () => {
-  revealItems.forEach((item) => {
-    const rect = item.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 80) {
-      item.classList.add("show");
-    }
-  });
-};
-window.addEventListener("scroll", revealOnScroll);
-window.addEventListener("load", revealOnScroll);
+  function openAccordion(targetId) {
+    accordionItems.forEach((item) => {
+      const isTarget = item.id === targetId;
+      const btn = item.querySelector(".accordion-head");
 
-// Accordion
-const accordionItems = document.querySelectorAll(".accordion-item");
-accordionItems.forEach((item) => {
-  const btn = item.querySelector(".accordion-btn");
-  const content = item.querySelector(".accordion-content");
-  btn.addEventListener("click", () => {
-    const isActive = item.classList.contains("active");
-
-    accordionItems.forEach((other) => {
-      other.classList.remove("active");
-      other.querySelector(".accordion-content").style.maxHeight = null;
+      item.classList.toggle("is-open", isTarget);
+      if (btn) btn.setAttribute("aria-expanded", String(isTarget));
     });
-
-    if (!isActive) {
-      item.classList.add("active");
-      content.style.maxHeight = content.scrollHeight + "px";
-    }
-  });
-});
-
-// Service dropdown
-const serviceCards = document.querySelectorAll(".service-card");
-serviceCards.forEach((card) => {
-  const btn = card.querySelector(".service-detail-btn");
-  const dropdown = card.querySelector(".service-dropdown");
-
-  btn.addEventListener("click", () => {
-    const isActive = card.classList.contains("active");
-
-    serviceCards.forEach((other) => {
-      other.classList.remove("active");
-      other.querySelector(".service-dropdown").style.maxHeight = null;
-      other.querySelector(".service-detail-btn").innerText =
-        "Xem chi tiết dịch vụ";
-    });
-
-    if (!isActive) {
-      card.classList.add("active");
-      dropdown.style.maxHeight = dropdown.scrollHeight + "px";
-      btn.innerText = "Thu gọn nội dung";
-    }
-  });
-});
-
-// Modal
-const consultModal = document.getElementById("consultModal");
-const openModalBtn = document.getElementById("openModalBtn");
-const closeModalBtn = document.getElementById("closeModalBtn");
-const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-const navLinks = document.querySelector(".nav-links");
-
-if (mobileMenuBtn && navLinks) {
-  mobileMenuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-  });
-
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => navLinks.classList.remove("active"));
-  });
-}
-
-if (openModalBtn) {
-  openModalBtn.addEventListener("click", () => {
-    consultModal.classList.add("active");
-    document.body.style.overflow = "hidden";
-  });
-}
-
-closeModalBtn.addEventListener("click", () => {
-  consultModal.classList.remove("active");
-  document.body.style.overflow = "";
-});
-
-consultModal.addEventListener("click", (e) => {
-  if (e.target === consultModal) {
-    consultModal.classList.remove("active");
-    document.body.style.overflow = "";
   }
-});
 
-// Form submit
-function submitContact(event) {
-  event.preventDefault();
-  const name = document.getElementById("name").value.trim();
-  alert(
-    `Cảm ơn ${name}! KYFAN đã ghi nhận thông tin của bạn và sẽ liên hệ sớm.`,
-  );
-  event.target.reset();
-}
+  accordionItems.forEach((item) => {
+    const btn = item.querySelector(".accordion-head");
+    if (!btn) return;
 
-function submitModalForm(event) {
-  event.preventDefault();
-  const name = document.getElementById("modalName").value.trim();
-  alert(`Cảm ơn ${name}! Yêu cầu tư vấn nhanh đã được ghi nhận.`);
-  consultModal.classList.remove("active");
-  document.body.style.overflow = "";
-  event.target.reset();
-}
+    btn.addEventListener("click", () => {
+      const isOpen = item.classList.contains("is-open");
+
+      accordionItems.forEach((other) => {
+        other.classList.remove("is-open");
+        const otherBtn = other.querySelector(".accordion-head");
+        if (otherBtn) otherBtn.setAttribute("aria-expanded", "false");
+      });
+
+      if (!isOpen) {
+        item.classList.add("is-open");
+        btn.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      const target = link.dataset.target;
+      navLinks.forEach((item) =>
+        item.classList.toggle("is-active", item === link),
+      );
+      if (target && target !== "home") openAccordion(target);
+    });
+  });
+
+  function animateNumbers() {
+    statNumbers.forEach((node) => {
+      if (node.dataset.done === "true") return;
+
+      const target = Number(node.dataset.count || 0);
+      const suffix = node.dataset.suffix || "";
+      const start = performance.now();
+      const duration = target > 1000 ? 1400 : 850;
+
+      node.dataset.done = "true";
+
+      function frame(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        node.textContent = Math.round(target * eased) + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          node.textContent = target + suffix;
+        }
+      }
+
+      requestAnimationFrame(frame);
+    });
+  }
+
+  const statsBox = document.querySelector(".stats-count");
+  if ("IntersectionObserver" in window && statsBox) {
+    const counterObserver = new IntersectionObserver(
+      (entries, observer) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          animateNumbers();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+
+    counterObserver.observe(statsBox);
+  } else {
+    window.addEventListener("load", animateNumbers, { once: true });
+  }
+
+  if ("IntersectionObserver" in window) {
+    const sections = ["home", "about", "capacity", "projects", "contact"]
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    const navObserver = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!visible) return;
+
+        const id = visible.target.id;
+        navLinks.forEach((link) =>
+          link.classList.toggle("is-active", link.dataset.target === id),
+        );
+      },
+      {
+        root: null,
+        threshold: [0.2, 0.45, 0.7],
+        rootMargin: "-18% 0px -65% 0px",
+      },
+    );
+
+    sections.forEach((section) => navObserver.observe(section));
+  }
+})();
