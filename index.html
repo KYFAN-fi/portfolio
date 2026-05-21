@@ -289,12 +289,12 @@
                 <div class="calc-inputs">
                     <div class="calc-field">
                         <label class="calc-label" for="calcP">
-                            <span class="calc-label-icon">₫</span>
+                            <span class="calc-label-icon">💰</span>
                             Số tiền muốn vay
                         </label>
                         <div class="calc-input-wrap">
-                            <input type="number" id="calcP" class="calc-input" value="500" min="1" step="1"
-                                oninput="kfCalc()">
+                            <input type="number" id="calcP" class="calc-input" value=""
+                                placeholder="Vui lòng nhập số tiền muốn vay..." min="1" step="1" oninput="kfCalc()">
                             <span class="calc-input-unit">triệu đồng</span>
                         </div>
                         <div class="calc-hint">Ví dụ: 500 = vay 500 triệu đồng</div>
@@ -305,11 +305,12 @@
                             Thời hạn vay
                         </label>
                         <div class="calc-input-wrap">
-                            <input type="number" id="calcY" class="calc-input" value="2" min="1" max="30" step="1"
+                            <input type="number" id="calcY" class="calc-input" value=""
+                                placeholder="Vui lòng nhập thời hạn vay (từ 1 - 10 năm)" min="1" max="10" step="1"
                                 oninput="kfCalc()">
                             <span class="calc-input-unit">năm</span>
                         </div>
-                        <div class="calc-hint">1 năm = 12 tháng &nbsp;·&nbsp; tối đa 30 năm</div>
+                        <div class="calc-hint">1 năm = 12 tháng &nbsp;·&nbsp; tối đa 10 năm</div>
                     </div>
                     <div class="calc-field">
                         <label class="calc-label" for="calcR">
@@ -317,8 +318,9 @@
                             Lãi suất
                         </label>
                         <div class="calc-input-wrap">
-                            <input type="number" id="calcR" class="calc-input" value="1.2" min="0.01" max="10"
-                                step="0.1" oninput="kfCalc()">
+                            <input type="number" id="calcR" class="calc-input" value=""
+                                placeholder="Vui lòng nhập lãi suất..." min="0.01" max="10" step="0.1"
+                                oninput="kfCalc()">
                             <span class="calc-input-unit">%/tháng</span>
                         </div>
                         <div class="calc-hint">Ví dụ: 1.2 = lãi 1.2% mỗi tháng</div>

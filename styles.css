@@ -938,7 +938,7 @@ button {
 }
 
 .calc-brand-dot::after {
-    content: "₫";
+    content: "$";
     position: absolute;
     inset: 0;
     display: grid;
@@ -1810,5 +1810,17 @@ button {
     .money-bag-icon {
         width: 25px;
         height: 25px;
+    }
+}
+
+.calc-input::placeholder {
+    color: rgba(95, 107, 124, .55);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+@media (max-width: 520px) {
+    .calc-input::placeholder {
+        font-size: 13px;
     }
 }

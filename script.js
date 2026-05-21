@@ -286,7 +286,7 @@
         <div class="calc-bar-row">
           <div class="calc-bar-info">
             <span class="calc-bar-name">Tiền gốc</span>
-            <span class="calc-bar-amt">${fmt(P)} đ &nbsp;·&nbsp; ${pPct}%</span>
+            <span class="calc-bar-amt">${fmt(P)}  &nbsp;·&nbsp; ${pPct}%</span>
           </div>
           <div class="calc-bar-track">
             <div class="calc-bar-fill" style="width:${pPct}%;background:#004fc4"></div>
@@ -295,7 +295,7 @@
         <div class="calc-bar-row">
           <div class="calc-bar-info">
             <span class="calc-bar-name">Tổng tiền lãi</span>
-            <span class="calc-bar-amt">${fmt(totalInterest)} đ &nbsp;·&nbsp; ${iPct}%</span>
+            <span class="calc-bar-amt">${fmt(totalInterest)}  &nbsp;·&nbsp; ${iPct}%</span>
           </div>
           <div class="calc-bar-track">
             <div class="calc-bar-fill" style="width:${iPct}%;background:#ef9f27"></div>
@@ -304,7 +304,7 @@
         <div class="calc-bar-row">
           <div class="calc-bar-info">
             <span class="calc-bar-name">Tổng phải trả</span>
-            <span class="calc-bar-amt">${fmt(totalPayment)} đ &nbsp;·&nbsp; 100%</span>
+            <span class="calc-bar-amt">${fmt(totalPayment)}  &nbsp;·&nbsp; 100%</span>
           </div>
           <div class="calc-bar-track">
             <div class="calc-bar-fill" style="width:100%;background:#a32d2d"></div>
@@ -317,15 +317,15 @@
         <div class="calc-formula-rows">
           <div class="calc-formula-row">
             <span class="calc-formula-eq">Lãi/tháng = ${fmt(P)} × ${R}%</span>
-            <span class="calc-formula-val">= ${fmt(monthlyInterest)} đ</span>
+            <span class="calc-formula-val">= ${fmt(monthlyInterest)} </span>
           </div>
           <div class="calc-formula-row">
             <span class="calc-formula-eq">Tổng lãi = ${fmt(monthlyInterest)} × ${months} tháng</span>
-            <span class="calc-formula-val">= ${fmt(totalInterest)} đ</span>
+            <span class="calc-formula-val">= ${fmt(totalInterest)} </span>
           </div>
           <div class="calc-formula-row">
             <span class="calc-formula-eq">Tổng trả = ${fmt(totalInterest)} + ${fmt(P)} (gốc)</span>
-            <span class="calc-formula-val">= ${fmt(totalPayment)} đ</span>
+            <span class="calc-formula-val">= ${fmt(totalPayment)} </span>
           </div>
           <div class="calc-formula-row">
             <span class="calc-formula-eq">Lãi suất năm tương đương</span>
