@@ -53,7 +53,13 @@
                         KYFAN cung cấp giải pháp tài chính thế chấp tối ưu, đồng hành cùng khách hàng tạo dựng giá trị
                         an toàn, hiệu quả và bền vững.
                     </p>
-                    <a href="#about" class="primary-btn">Tìm hiểu thêm <span class="arrow">→</span></a>
+                    <div class="hero-actions">
+                        <a href="#about" class="primary-btn">Tìm hiểu thêm <span class="arrow">→</span></a>
+                        <button class="calc-trigger-btn" id="calcTriggerHero" onclick="openCalc()" type="button">
+                            <span class="calc-trigger-icon" aria-hidden="true">&#9783;</span>
+                            Tính khoản vay
+                        </button>
+                    </div>
                 </div>
 
                 <div class="stats-count" aria-label="Thống kê nổi bật">
@@ -263,7 +269,79 @@
         </main>
     </div>
 
+    <!-- ===================== LOAN CALCULATOR OVERLAY ===================== -->
+    <div class="calc-overlay" id="calcOverlay" aria-modal="true" role="dialog"
+        aria-label="Công cụ tính khoản vay KYFAN">
+        <div class="calc-panel" id="calcPanel">
+            <div class="calc-panel-header">
+                <div class="calc-panel-brand">
+                    <div class="calc-brand-dot" aria-hidden="true"></div>
+                    <div>
+                        <h2 class="calc-panel-title">Phân tích khoản vay</h2>
+                        <p class="calc-panel-sub">KYFAN · Tính lãi phẳng · Kết quả tức thì</p>
+                    </div>
+                </div>
+                <button class="calc-close-btn" onclick="closeCalc()" type="button"
+                    aria-label="Đóng máy tính khoản vay">✕</button>
+            </div>
+
+            <div class="calc-body">
+                <div class="calc-inputs">
+                    <div class="calc-field">
+                        <label class="calc-label" for="calcP">
+                            <span class="calc-label-icon">₫</span>
+                            Số tiền muốn vay
+                        </label>
+                        <div class="calc-input-wrap">
+                            <input type="number" id="calcP" class="calc-input" value="500" min="1" step="1"
+                                oninput="kfCalc()">
+                            <span class="calc-input-unit">triệu đồng</span>
+                        </div>
+                        <div class="calc-hint">Ví dụ: 500 = vay 500 triệu đồng</div>
+                    </div>
+                    <div class="calc-field">
+                        <label class="calc-label" for="calcY">
+                            <span class="calc-label-icon">📅</span>
+                            Thời hạn vay
+                        </label>
+                        <div class="calc-input-wrap">
+                            <input type="number" id="calcY" class="calc-input" value="2" min="1" max="30" step="1"
+                                oninput="kfCalc()">
+                            <span class="calc-input-unit">năm</span>
+                        </div>
+                        <div class="calc-hint">1 năm = 12 tháng &nbsp;·&nbsp; tối đa 30 năm</div>
+                    </div>
+                    <div class="calc-field">
+                        <label class="calc-label" for="calcR">
+                            <span class="calc-label-icon">%</span>
+                            Lãi suất
+                        </label>
+                        <div class="calc-input-wrap">
+                            <input type="number" id="calcR" class="calc-input" value="1.2" min="0.01" max="10"
+                                step="0.1" oninput="kfCalc()">
+                            <span class="calc-input-unit">%/tháng</span>
+                        </div>
+                        <div class="calc-hint">Ví dụ: 1.2 = lãi 1.2% mỗi tháng</div>
+                    </div>
+                </div>
+
+                <div class="calc-result-area" id="calcResult"></div>
+            </div>
+
+            <div class="calc-panel-footer">
+                <a href="tel:0339123086" class="calc-footer-cta">☎ Tư vấn miễn phí: 0339.123.086</a>
+            </div>
+        </div>
+    </div>
+    <!-- ================================================================== -->
+
     <div class="floating-cta" aria-label="Liên hệ nhanh">
+        <button class="floating-cta__btn floating-cta__btn--calc" onclick="openCalc()" type="button"
+            aria-label="Mở công cụ tính khoản vay KYFAN">
+            <span class="calc-icon-text">₫</span>
+            <span class="floating-label">Tính khoản vay</span>
+        </button>
+
         <a class="floating-cta__btn floating-cta__btn--call" href="tel:0339123086" aria-label="Gọi hotline KYFAN">
             ☎
             <span class="floating-label">Gọi 0339.123.086</span>
@@ -276,6 +354,7 @@
         </a>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
 
