@@ -228,7 +228,7 @@
             <span class="calc-metric-dot" style="background:#004fc4"></span>
             Lãi trả mỗi tháng
           </div>
-          <div class="calc-metric-val blue">${fmt(monthlyInterest)} đ</div>
+          <div class="calc-metric-val blue">${fmt(monthlyInterest)}</div>
           <div class="calc-metric-sub">Cố định suốt ${months} tháng</div>
         </div>
         <div class="calc-metric">
@@ -236,7 +236,7 @@
             <span class="calc-metric-dot" style="background:#e6a800"></span>
             Tổng tiền lãi
           </div>
-          <div class="calc-metric-val amber">${fmt(totalInterest)} đ</div>
+          <div class="calc-metric-val amber">${fmt(totalInterest)}</div>
           <div class="calc-metric-sub">${months} tháng × ${fmt(monthlyInterest)}</div>
         </div>
         <div class="calc-metric">
@@ -244,7 +244,7 @@
             <span class="calc-metric-dot" style="background:#a32d2d"></span>
             Tổng phải trả
           </div>
-          <div class="calc-metric-val red">${fmt(totalPayment)} đ</div>
+          <div class="calc-metric-val red">${fmt(totalPayment)}</div>
           <div class="calc-metric-sub">Gốc + toàn bộ lãi</div>
         </div>
       </div>
@@ -391,7 +391,7 @@
           tooltip: {
             callbacks: {
               label: (c) =>
-                " " + c.dataset.label + ": " + c.parsed.y + " triệu đ",
+                " " + c.dataset.label + ": " + c.parsed.y + " triệu",
             },
           },
         },
