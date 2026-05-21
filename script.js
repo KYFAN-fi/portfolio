@@ -117,9 +117,29 @@
   let barChart = null;
   let donutChart = null;
 
+  let chartLoaderPromise = null;
+
+  function loadChartJs() {
+    if (window.Chart) return Promise.resolve(window.Chart);
+    if (chartLoaderPromise) return chartLoaderPromise;
+
+    chartLoaderPromise = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js";
+      script.async = true;
+      script.onload = () => resolve(window.Chart);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+
+    return chartLoaderPromise;
+  }
+
   /* ── Open / Close ── */
   window.openCalc = function () {
     const overlay = document.getElementById("calcOverlay");
+    if (!overlay) return;
     overlay.classList.add("is-open");
     document.body.style.overflow = "hidden";
     // Run calculation immediately so result is visible on open
@@ -133,14 +153,18 @@
 
   window.closeCalc = function () {
     const overlay = document.getElementById("calcOverlay");
+    if (!overlay) return;
     overlay.classList.remove("is-open");
     document.body.style.overflow = "";
   };
 
   // Close on overlay backdrop click
-  document.getElementById("calcOverlay").addEventListener("click", (e) => {
-    if (e.target === e.currentTarget) window.closeCalc();
-  });
+  const calcOverlayEl = document.getElementById("calcOverlay");
+  if (calcOverlayEl) {
+    calcOverlayEl.addEventListener("click", (e) => {
+      if (e.target === e.currentTarget) window.closeCalc();
+    });
+  }
 
   // Close on Escape key
   document.addEventListener("keydown", (e) => {
@@ -319,6 +343,20 @@
     if (donutChart) {
       donutChart.destroy();
       donutChart = null;
+    }
+
+    /* ── Lazy load Chart.js: trang chính load nhanh hơn, chỉ tải chart khi mở máy tính ── */
+    if (!window.Chart) {
+      loadChartJs()
+        .then(() => window.kfCalc())
+        .catch(() => {
+          const chartBoxes = resultArea.querySelectorAll(".calc-chart-box");
+          chartBoxes.forEach((box) => {
+            box.innerHTML +=
+              '<div class="calc-hint">Biểu đồ chưa tải được, số liệu phía trên vẫn có thể sử dụng.</div>';
+          });
+        });
+      return;
     }
 
     /* ── Build new charts ── */
