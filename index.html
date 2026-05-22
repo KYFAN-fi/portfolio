@@ -24,6 +24,8 @@
                             thiệu</span></a>
                     <a href="#capacity" class="nav-link" data-target="capacity"><span
                             class="nav-icon">D</span><span>Dịch vụ</span></a>
+                    <a href="#news" class="nav-link" data-target="news"><span class="nav-icon">N</span><span>Tin
+                            tức</span></a>
                     <a href="#projects" class="nav-link" data-target="projects"><span
                             class="nav-icon">T</span><span>Triết lý</span></a>
                     <a href="#contact" class="nav-link" data-target="contact"><span class="nav-icon">L</span><span>Liên
@@ -41,6 +43,7 @@
         </header>
 
         <main class="main">
+            <!-- ══ HERO ══════════════════════════════════════════════ -->
             <section class="hero" id="home">
                 <div class="yellow-shape" aria-hidden="true"></div>
 
@@ -82,6 +85,231 @@
                 </div>
             </section>
 
+            <!-- ══ SERVICE CAROUSEL ══════════════════════════════════ -->
+            <section class="carousel-section" id="services" aria-label="Dịch vụ nổi bật">
+                <div class="carousel-header">
+                    <div>
+                        <p class="carousel-eyebrow">DỊCH VỤ CỦA CHÚNG TÔI</p>
+                        <h2 class="carousel-title">Giải Pháp Tài Chính <span class="highlight-text">Toàn Diện</span>
+                        </h2>
+                    </div>
+                    <div class="carousel-controls">
+
+                    </div>
+                </div>
+
+                <div class="carousel-track-wrap" aria-live="polite">
+                    <div class="carousel-track" id="carouselTrack">
+
+                        <style>
+                            .cs-img-wrap {
+                                position: relative;
+                                overflow: hidden;
+                            }
+
+                            .cs-img-demo {
+                                display: block;
+                                width: 100%;
+                                height: 100%;
+                                min-height: 260px;
+                                object-fit: cover;
+                                object-position: center;
+                                border-radius: inherit;
+                                filter: saturate(0.95) contrast(1.02);
+                                transition: transform 0.45s ease, filter 0.45s ease;
+                            }
+
+                            .carousel-slide:hover .cs-img-demo {
+                                transform: scale(1.04);
+                                filter: saturate(1.08) contrast(1.05);
+                            }
+
+                            .cs-img-wrap::after {
+                                content: "";
+                                position: absolute;
+                                inset: 0;
+                                background:
+                                    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.36)),
+                                    radial-gradient(circle at 20% 15%, rgba(255, 215, 120, 0.26), transparent 34%);
+                                pointer-events: none;
+                            }
+
+                            .cs-img-fallback {
+                                display: none;
+                                width: 100%;
+                                min-height: 260px;
+                                place-items: center;
+                                text-align: center;
+                                padding: 28px;
+                                color: #ffffff;
+                                background:
+                                    radial-gradient(circle at top left, rgba(255, 215, 120, 0.35), transparent 36%),
+                                    linear-gradient(135deg, #003d35, #071314 58%, #c79a2b);
+                                border-radius: inherit;
+                            }
+
+                            .cs-img-fallback strong {
+                                display: block;
+                                font-size: 18px;
+                                margin-bottom: 8px;
+                            }
+
+                            .cs-img-fallback span {
+                                font-size: 13px;
+                                opacity: 0.9;
+                            }
+
+                            .cs-img-demo.is-error {
+                                display: none;
+                            }
+
+                            .cs-img-demo.is-error+.cs-img-fallback {
+                                display: grid;
+                            }
+
+                            .cs-badge {
+                                z-index: 2;
+                            }
+                        </style>
+
+                        <!-- Slide 1 -->
+                        <div class="carousel-slide" role="group" aria-label="Slide 1 of 4">
+                            <div class="cs-img-wrap">
+                                <img class="cs-img-demo" src="./thechapsohong.png"
+                                    alt="Ảnh demo nhà ở hiện đại đại diện cho dịch vụ vay thế chấp sổ hồng"
+                                    loading="lazy" onerror="this.classList.add('is-error')" />
+                                <div class="cs-img-fallback">
+                                    <div>
+                                        <strong>Vay Thế Chấp Sổ Hồng</strong>
+                                        <span>Ảnh demo tài sản bảo đảm</span>
+                                    </div>
+                                </div>
+                                <div class="cs-badge">Phổ biến nhất</div>
+                            </div>
+
+                            <div class="cs-body">
+                                <div class="cs-num">01</div>
+                                <h3 class="cs-title">Vay Thế Chấp Sổ Hồng</h3>
+                                <p class="cs-desc">
+                                    Hỗ trợ khách hàng tiếp cận khoản vay phù hợp dựa trên giá trị tài sản thực tế.
+                                    Quy trình nhanh, minh bạch và bảo mật tuyệt đối.
+                                </p>
+                                <ul class="cs-list">
+                                    <li>Định giá tài sản chuẩn xác</li>
+                                    <li>Giải ngân nhanh trong 3–5 ngày</li>
+                                    <li>Lãi suất cố định, không thả nổi</li>
+                                </ul>
+                                <button class="cs-cta" onclick="openCalc()" type="button">Tính khoản vay
+                                    <span>→</span></button>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="carousel-slide" role="group" aria-label="Slide 2 of 4">
+                            <div class="cs-img-wrap">
+                                <img class="cs-img-demo" src="./nanghanmuckyfan.png"
+                                    alt="Ảnh demo phân tích tài chính và hồ sơ vay đại diện cho dịch vụ nâng hạn mức vay"
+                                    loading="lazy" onerror="this.classList.add('is-error')" />
+                                <div class="cs-img-fallback">
+                                    <div>
+                                        <strong>Nâng Hạn Mức Vay</strong>
+                                        <span>Ảnh demo phân tích tài chính</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cs-body">
+                                <div class="cs-num">02</div>
+                                <h3 class="cs-title">Nâng Hạn Mức Vay</h3>
+                                <p class="cs-desc">
+                                    Tối ưu hạn mức tài chính dựa trên hồ sơ, tài sản và nhu cầu sử dụng vốn thực tế
+                                    của từng khách hàng.
+                                </p>
+                                <ul class="cs-list">
+                                    <li>Phân tích hồ sơ chuyên sâu</li>
+                                    <li>Đề xuất phương án tối ưu</li>
+                                    <li>Tư vấn miễn phí, không ràng buộc</li>
+                                </ul>
+                                <button class="cs-cta" onclick="openCalc()" type="button">Tính khoản vay
+                                    <span>→</span></button>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="carousel-slide" role="group" aria-label="Slide 3 of 4">
+                            <div class="cs-img-wrap">
+                                <img class="cs-img-demo" src="daohannganhang.png"
+                                    alt="Ảnh demo giấy tờ tài chính và hợp đồng đại diện cho dịch vụ đáo hạn khoản vay"
+                                    loading="lazy" onerror="this.classList.add('is-error')" />
+                                <div class="cs-img-fallback">
+                                    <div>
+                                        <strong>Đáo Hạn Khoản Vay</strong>
+                                        <span>Ảnh demo xử lý hồ sơ đến hạn</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cs-body">
+                                <div class="cs-num">03</div>
+                                <h3 class="cs-title">Đáo Hạn Khoản Vay</h3>
+                                <p class="cs-desc">
+                                    Đồng hành xử lý thời điểm đến hạn, giảm áp lực tài chính và duy trì dòng tiền ổn
+                                    định
+                                    cho khách hàng.
+                                </p>
+                                <ul class="cs-list">
+                                    <li>Xử lý trước hạn 30–60 ngày</li>
+                                    <li>Cơ cấu lại khoản vay linh hoạt</li>
+                                    <li>Giảm thiểu rủi ro phát sinh</li>
+                                </ul>
+                                <button class="cs-cta" onclick="openCalc()" type="button">Tính khoản vay
+                                    <span>→</span></button>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4 -->
+                        <div class="carousel-slide" role="group" aria-label="Slide 4 of 4">
+                            <div class="cs-img-wrap">
+                                <img class="cs-img-demo" src="./hosokhocokyfan.png"
+                                    alt="Ảnh demo tư vấn khách hàng đại diện cho dịch vụ tư vấn hồ sơ khó"
+                                    loading="lazy" onerror="this.classList.add('is-error')" />
+                                <div class="cs-img-fallback">
+                                    <div>
+                                        <strong>Tư Vấn Hồ Sơ Khó</strong>
+                                        <span>Ảnh demo tư vấn bảo mật hồ sơ</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cs-body">
+                                <div class="cs-num">04</div>
+                                <h3 class="cs-title">Tư Vấn Hồ Sơ Khó</h3>
+                                <p class="cs-desc">
+                                    Chuyên xử lý các hồ sơ phức tạp, cần cơ cấu đặc biệt hoặc yêu cầu bảo mật thông tin
+                                    ở mức cao nhất.
+                                </p>
+                                <ul class="cs-list">
+                                    <li>Bảo mật tuyệt đối 100%</li>
+                                    <li>Chuyên viên kinh nghiệm cao</li>
+                                    <li>Phương án xử lý riêng biệt</li>
+                                </ul>
+                                <button class="cs-cta" onclick="openCalc()" type="button">Tính khoản vay
+                                    <span>→</span></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="carousel-dots" id="carouselDots" aria-label="Chọn slide">
+                    <button class="dot is-active" aria-label="Slide 1"></button>
+                    <button class="dot" aria-label="Slide 2"></button>
+                    <button class="dot" aria-label="Slide 3"></button>
+                    <button class="dot" aria-label="Slide 4"></button>
+                </div>
+            </section>
+
+            <!-- ══ CONTENT PANEL (Accordion) ════════════════════════ -->
             <section class="content-panel" aria-label="Nội dung hồ sơ năng lực">
                 <div class="panel-box">
                     <article class="accordion-item is-open" id="about">
@@ -185,9 +413,115 @@
                         </div>
                     </article>
 
+                    <!-- ══ NEWS SECTION ══════════════════════════════ -->
+                    <article class="accordion-item" id="news">
+                        <button class="accordion-head" type="button" aria-expanded="false">
+                            <span>Tin tức mới nhất của KYFAN</span>
+                            <b class="accordion-icon">+</b>
+                        </button>
+                        <div class="accordion-body">
+                            <div class="accordion-body-inner">
+                                <div class="news-section">
+                                    <div class="news-intro">
+                                        <h2 class="section-title">Tin Tức Mới Nhất</h2>
+                                        <p class="body-copy">Cập nhật các chương trình ưu đãi, dự án đang triển khai và
+                                            thông tin thị trường tài chính từ KYFAN.</p>
+                                    </div>
+
+                                    <div class="news-grid">
+
+                                        <article class="news-card news-card--featured" data-news="1" tabindex="0"
+                                            role="button" aria-label="Đọc bài: Chương trình lãi suất ưu đãi Q2/2026">
+                                            <div class="news-card-img-wrap">
+                                                <!-- placeholder img -->
+                                                <div class="news-img-placeholder">
+                                                    <span>📰</span>
+                                                </div>
+                                                <span class="news-tag news-tag--hot">Mới nhất</span>
+                                            </div>
+                                            <div class="news-card-body">
+                                                <div class="news-meta">
+                                                    <span class="news-date">15/05/2026</span>
+                                                    <span class="news-cat">Chương trình ưu đãi</span>
+                                                </div>
+                                                <h3 class="news-card-title">Chương Trình Lãi Suất Ưu Đãi Quý 2/2026</h3>
+                                                <p class="news-card-excerpt">KYFAN triển khai gói vay thế chấp với lãi
+                                                    suất ưu đãi đặc biệt dành cho khách hàng mới trong quý 2 năm 2026...
+                                                </p>
+                                                <span class="news-read-more">Xem chi tiết <span>→</span></span>
+                                            </div>
+                                        </article>
+
+                                        <article class="news-card" data-news="2" tabindex="0" role="button"
+                                            aria-label="Đọc bài: Hướng dẫn chuẩn bị hồ sơ vay thế chấp">
+                                            <div class="news-card-img-wrap">
+                                                <div class="news-img-placeholder">
+                                                    <span>📋</span>
+                                                </div>
+                                                <span class="news-tag">Hướng dẫn</span>
+                                            </div>
+                                            <div class="news-card-body">
+                                                <div class="news-meta">
+                                                    <span class="news-date">08/05/2026</span>
+                                                    <span class="news-cat">Kiến thức tài chính</span>
+                                                </div>
+                                                <h3 class="news-card-title">Hướng Dẫn Chuẩn Bị Hồ Sơ Vay Thế Chấp</h3>
+                                                <p class="news-card-excerpt">Những tài liệu cần thiết và các bước chuẩn
+                                                    bị để hồ sơ vay thế chấp được duyệt nhanh nhất...</p>
+                                                <span class="news-read-more">Xem chi tiết <span>→</span></span>
+                                            </div>
+                                        </article>
+
+                                        <article class="news-card" data-news="3" tabindex="0" role="button"
+                                            aria-label="Đọc bài: Dự án hỗ trợ đáo hạn tháng 5">
+                                            <div class="news-card-img-wrap">
+                                                <div class="news-img-placeholder">
+                                                    <span>🗓️</span>
+                                                </div>
+                                                <span class="news-tag news-tag--new">Dự án</span>
+                                            </div>
+                                            <div class="news-card-body">
+                                                <div class="news-meta">
+                                                    <span class="news-date">01/05/2026</span>
+                                                    <span class="news-cat">Dự án triển khai</span>
+                                                </div>
+                                                <h3 class="news-card-title">Dự Án Hỗ Trợ Đáo Hạn Tháng 5/2026</h3>
+                                                <p class="news-card-excerpt">KYFAN đang triển khai dự án hỗ trợ 50 khách
+                                                    hàng đáo hạn khoản vay trong tháng 5 với phí dịch vụ ưu đãi...</p>
+                                                <span class="news-read-more">Xem chi tiết <span>→</span></span>
+                                            </div>
+                                        </article>
+
+                                        <article class="news-card" data-news="4" tabindex="0" role="button"
+                                            aria-label="Đọc bài: Thị trường bất động sản Hà Nội tháng 5">
+                                            <div class="news-card-img-wrap">
+                                                <div class="news-img-placeholder">
+                                                    <span>📊</span>
+                                                </div>
+                                                <span class="news-tag">Thị trường</span>
+                                            </div>
+                                            <div class="news-card-body">
+                                                <div class="news-meta">
+                                                    <span class="news-date">28/04/2026</span>
+                                                    <span class="news-cat">Phân tích thị trường</span>
+                                                </div>
+                                                <h3 class="news-card-title">Thị Trường BĐS Hà Nội Tháng 5/2026</h3>
+                                                <p class="news-card-excerpt">Nhận định xu hướng định giá tài sản thế
+                                                    chấp tại Hà Nội trong bối cảnh lãi suất ngân hàng có nhiều biến
+                                                    động...</p>
+                                                <span class="news-read-more">Xem chi tiết <span>→</span></span>
+                                            </div>
+                                        </article>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
                     <article class="accordion-item" id="projects">
                         <button class="accordion-head" type="button" aria-expanded="false">
-                            <span>Tiêu Trí Làm Việc</span>
+                            <span>Tiêu Chí Làm Việc</span>
                             <b class="accordion-icon">+</b>
                         </button>
                         <div class="accordion-body">
@@ -266,10 +600,85 @@
                     </article>
                 </div>
             </section>
+
+            <!-- ══ FOOTER ════════════════════════════════════════════ -->
+            <footer class="site-footer">
+                <div class="footer-inner">
+                    <div class="footer-brand-col">
+                        <span class="footer-logo">KYFAN</span>
+                        <p class="footer-tagline">Giải pháp tài chính thế chấp tối ưu — an toàn, minh bạch và bền vững.
+                        </p>
+                        <!-- <div class="footer-socials">
+                            <a href="tel:0339123086" class="footer-social-btn" aria-label="Gọi điện">☎</a>
+                            <a href="https://zalo.me/0339123086" target="_blank" rel="noopener"
+                                class="footer-social-btn footer-social-btn--zalo" aria-label="Zalo"><b>Z</b></a>
+                        </div> -->
+                    </div>
+
+                    <div class="footer-links-col">
+                        <!-- <h4 class="footer-col-title">Điều hướng</h4>
+                        <ul class="footer-links">
+                            <li><a href="#home">Trang chủ</a></li>
+                            <li><a href="#about">Giới thiệu</a></li>
+                            <li><a href="#capacity">Dịch vụ</a></li>
+                            <li><a href="#news">Tin tức</a></li>
+                            <li><a href="#projects">Triết lý</a></li>
+                            <li><a href="#contact">Liên hệ</a></li>
+                        </ul> -->
+                    </div>
+
+                    <div class="footer-links-col">
+                        <!-- <h4 class="footer-col-title">Dịch vụ</h4>
+                        <ul class="footer-links">
+                            <li><a href="#capacity">Vay thế chấp sổ hồng</a></li>
+                            <li><a href="#capacity">Nâng hạn mức vay</a></li>
+                            <li><a href="#capacity">Đáo hạn khoản vay</a></li>
+                            <li><a href="#capacity">Tư vấn hồ sơ khó</a></li>
+                        </ul> -->
+                    </div>
+
+                    <div class="footer-contact-col">
+                        <h4 class="footer-col-title">Liên hệ ngay</h4>
+                        <div class="footer-contact-items">
+                            <div class="footer-contact-item">
+                                <span class="footer-contact-icon">☎</span>
+                                <div>
+                                    <span class="footer-contact-label">Hotline</span>
+                                    <a href="tel:0339123086" class="footer-contact-val">0339.123.086</a>
+                                </div>
+                            </div>
+                            <div class="footer-contact-item">
+                                <span class="footer-contact-icon">💬</span>
+                                <div>
+                                    <span class="footer-contact-label">Zalo</span>
+                                    <a href="https://zalo.me/0339123086" target="_blank" rel="noopener"
+                                        class="footer-contact-val">0339.123.086</a>
+                                </div>
+                            </div>
+                            <div class="footer-contact-item">
+                                <span class="footer-contact-icon">🕐</span>
+                                <div>
+                                    <span class="footer-contact-label">Hỗ trợ</span>
+                                    <span class="footer-contact-val">24/7 — Tất cả các ngày</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="footer-calc-btn" onclick="openCalc()">
+                            Tính khoản vay miễn phí →
+                        </button>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p class="footer-copy">© 2026 KYFAN. Tất cả quyền được bảo lưu.</p>
+                    <p class="footer-disclaimer">Thông tin chỉ mang tính chất tham khảo. Kết quả tính toán không phải
+                        cam kết tài chính chính thức.</p>
+                </div>
+            </footer>
         </main>
     </div>
 
-    <!-- ===================== LOAN CALCULATOR OVERLAY ===================== -->
+    <!-- ══ LOAN CALCULATOR OVERLAY ══════════════════════════════════ -->
     <div class="calc-overlay" id="calcOverlay" aria-modal="true" role="dialog"
         aria-label="Công cụ tính khoản vay KYFAN">
         <div class="calc-panel" id="calcPanel">
@@ -293,8 +702,8 @@
                             Số tiền muốn vay
                         </label>
                         <div class="calc-input-wrap">
-                            <input type="number" id="calcP" class="calc-input" value=""
-                                placeholder="Vui lòng nhập số tiền muốn vay..." min="1" step="1" oninput="kfCalc()">
+                            <input type="number" id="calcP" class="calc-input" value="" placeholder="Nhập số tiền..."
+                                min="1" step="1" oninput="onPrincipalChange()">
                             <span class="calc-input-unit">triệu đồng</span>
                         </div>
                         <div class="calc-hint">Ví dụ: 500 = vay 500 triệu đồng</div>
@@ -306,8 +715,7 @@
                         </label>
                         <div class="calc-input-wrap">
                             <input type="number" id="calcY" class="calc-input" value=""
-                                placeholder="Vui lòng nhập thời hạn vay (từ 1 - 10 năm)" min="1" max="10" step="1"
-                                oninput="kfCalc()">
+                                placeholder="Thời hạn (1–10 năm)" min="1" max="10" step="1" disabled>
                             <span class="calc-input-unit">năm</span>
                         </div>
                         <div class="calc-hint">1 năm = 12 tháng &nbsp;·&nbsp; tối đa 10 năm</div>
@@ -318,13 +726,22 @@
                             Lãi suất
                         </label>
                         <div class="calc-input-wrap">
-                            <input type="number" id="calcR" class="calc-input" value=""
-                                placeholder="Vui lòng nhập lãi suất..." min="0.01" max="10" step="0.1"
-                                oninput="kfCalc()">
+                            <input type="number" id="calcR" class="calc-input" value="" placeholder="Lãi suất..."
+                                min="0.01" max="10" step="0.1" disabled>
                             <span class="calc-input-unit">%/tháng</span>
                         </div>
                         <div class="calc-hint">Ví dụ: 1.2 = lãi 1.2% mỗi tháng</div>
                     </div>
+                </div>
+
+                <div class="calc-action-row">
+                    <button class="calc-run-btn" id="calcRunBtn" onclick="kfCalc()" type="button" disabled>
+                        <span class="calc-run-icon">⚡</span>
+                        Tính toán khoản vay
+                    </button>
+                    <button class="calc-reset-btn" id="calcResetBtn" onclick="resetCalc()" type="button">
+                        ↺ Làm mới
+                    </button>
                 </div>
 
                 <div class="calc-result-area" id="calcResult"></div>
@@ -335,12 +752,19 @@
             </div>
         </div>
     </div>
-    <!-- ================================================================== -->
 
+    <!-- ══ NEWS DETAIL POPUP ════════════════════════════════════════ -->
+    <div class="news-overlay" id="newsOverlay" aria-modal="true" role="dialog" aria-label="Chi tiết bài viết">
+        <div class="news-popup" id="newsPopup">
+            <button class="news-popup-close" id="newsPopupClose" type="button" aria-label="Đóng bài viết">✕</button>
+            <div class="news-popup-content" id="newsPopupContent"></div>
+        </div>
+    </div>
+
+    <!-- ══ FLOATING CTA ════════════════════════════════════════════ -->
     <div class="floating-cta" aria-label="Liên hệ nhanh">
         <button class="floating-cta__btn floating-cta__btn--calc" onclick="openCalc()" type="button"
             aria-label="Mở công cụ tính khoản vay KYFAN">
-
             <span class="calc-icon-text" aria-hidden="true">
                 <svg class="money-bag-icon" viewBox="0 0 64 64" fill="none">
                     <path
@@ -356,7 +780,6 @@
                         stroke="#00327f" stroke-width="3.5" stroke-linecap="round" />
                     <path d="M21 25C24 23 27.5 22 32 22C36.5 22 40 23 43 25" stroke="#fff3b0" stroke-width="2.5"
                         stroke-linecap="round" opacity=".8" />
-
                     <defs>
                         <linearGradient id="moneyBagGradient" x1="18" y1="24" x2="48" y2="58"
                             gradientUnits="userSpaceOnUse">
@@ -367,7 +790,6 @@
                     </defs>
                 </svg>
             </span>
-
             <span class="floating-label">Tính khoản vay</span>
         </button>
 
