@@ -275,75 +275,164 @@
   ══════════════════════════════════════════════════════════ */
   const newsData = {
     1: {
-      icon: "📰",
-      tag: "Chương trình ưu đãi",
-      date: "15/05/2026",
-      cat: "Chương trình ưu đãi",
-      title: "Chương Trình Lãi Suất Ưu Đãi Quý 2/2026",
+      image: "./hosokho.png",
+      fallbackIcon: "📌",
+      tag: "Thông báo chính thức",
+      date: "01/06/2026",
+      cat: "Hỗ trợ hồ sơ khó",
+      title: "KYFAN Chính Thức Nhận Hỗ Trợ Hồ Sơ Khó Từ 01/06/2026",
       content: `
-        <p>KYFAN chính thức triển khai <strong>gói vay thế chấp với lãi suất ưu đãi đặc biệt</strong> dành cho khách hàng mới trong quý 2 năm 2026.</p>
-        <p>Chi tiết chương trình ưu đãi bao gồm:</p>
+        <p>Từ ngày <strong>01/06/2026</strong>, KYFAN chính thức tiếp nhận và hỗ trợ các trường hợp <strong>hồ sơ khó, hồ sơ cần xử lý chuyên sâu</strong> trong lĩnh vực tài chính thế chấp.</p>
+
+        <p>Chương trình tập trung hỗ trợ khách hàng đang gặp vướng mắc trong quá trình vay vốn, nâng hạn mức, đáo hạn hoặc cần cơ cấu lại khoản vay theo tình trạng thực tế của hồ sơ.</p>
+
+        <p>Các nhóm hồ sơ được KYFAN tiếp nhận hỗ trợ bao gồm:</p>
+
         <ul>
-          <li>Lãi suất ưu đãi áp dụng cho 6 tháng đầu tiên của hợp đồng vay</li>
-          <li>Miễn phí tư vấn và phân tích hồ sơ trong toàn bộ thời gian chương trình</li>
-          <li>Hỗ trợ định giá tài sản ưu tiên — rút ngắn thời gian xét duyệt xuống còn 2–3 ngày làm việc</li>
-          <li>Không thu phí thẩm định hồ sơ ban đầu</li>
-          <li>Được hỗ trợ cơ cấu khoản vay linh hoạt theo nhu cầu thực tế</li>
+          <li>Hồ sơ vay thế chấp sổ hồng cần phân tích và định hướng lại phương án</li>
+          <li>Hồ sơ cần nâng hạn mức nhưng chưa đạt điều kiện xét duyệt ban đầu</li>
+          <li>Hồ sơ đáo hạn khoản vay cần xử lý đúng thời điểm, hạn chế phát sinh rủi ro</li>
+          <li>Hồ sơ từng bị từ chối hoặc cần bổ sung lại chứng minh tài chính</li>
+          <li>Hồ sơ cần bảo mật thông tin và có phương án xử lý riêng biệt</li>
         </ul>
-        <p>Chương trình áp dụng cho các hồ sơ vay thế chấp sổ hồng, nâng hạn mức và đáo hạn khoản vay.</p>
+
+        <p>KYFAN sẽ hỗ trợ kiểm tra tình trạng hồ sơ, phân tích khả năng xử lý và đề xuất hướng đi phù hợp trước khi khách hàng quyết định triển khai.</p>
+
+        <p><strong>Thời gian bắt đầu tiếp nhận:</strong> từ ngày <strong>01/06/2026</strong>. Khách hàng có nhu cầu có thể liên hệ KYFAN để được tư vấn và hỗ trợ chi tiết.</p>
       `,
     },
+
     2: {
-      icon: "📋",
+      image: "./noidungchuanbi.png",
+      fallbackIcon: "📋",
       tag: "Hướng dẫn",
       date: "08/05/2026",
-      cat: "Kiến thức tài chính",
-      title: "Hướng Dẫn Chuẩn Bị Hồ Sơ Vay Thế Chấp",
+      cat: "Hồ sơ tài sản",
+      title: "4 Thông Tin Cần Chuẩn Bị Khi Làm Hồ Sơ Vay Thế Chấp",
       content: `
-        <p>Chuẩn bị hồ sơ đầy đủ và đúng quy cách là yếu tố then chốt giúp khoản vay thế chấp được duyệt nhanh hơn.</p>
-        <p><strong>Nhóm tài liệu về tài sản thế chấp:</strong></p>
+        <p>Để quá trình tư vấn và phân tích hồ sơ vay thế chấp được nhanh, rõ ràng và sát với thực tế hơn, khách hàng nên chuẩn bị trước các thông tin cơ bản về tài sản.</p>
+
+        <p><strong>1. Hình ảnh sổ hồng</strong></p>
         <ul>
-          <li>Sổ hồng/sổ đỏ bản gốc</li>
-          <li>Hợp đồng mua bán hoặc giấy tờ chứng minh nguồn gốc tài sản</li>
-          <li>Bản đồ địa chính và sơ đồ vị trí tài sản</li>
+          <li>Chụp rõ mặt chính của sổ hồng/sổ đỏ.</li>
+          <li>Đảm bảo nhìn rõ thông tin thửa đất, diện tích, mục đích sử dụng và thời hạn sử dụng.</li>
+          <li>Không cần gửi bản gốc ban đầu, chỉ cần hình ảnh rõ nét để KYFAN kiểm tra sơ bộ.</li>
+          <li>Nên che bớt thông tin nhạy cảm nếu khách hàng chưa muốn chia sẻ đầy đủ ngay từ đầu.</li>
         </ul>
-        <p><strong>Nhóm tài liệu cá nhân:</strong></p>
+
+        <p><strong>2. Vị trí tài sản</strong></p>
         <ul>
-          <li>CCCD/CMND còn hiệu lực</li>
-          <li>Hộ khẩu hoặc xác nhận thường trú</li>
-          <li>Giấy đăng ký kết hôn/độc thân nếu có</li>
+          <li>Cung cấp vị trí tài sản trên bản đồ hoặc gửi định vị Google Maps/Zalo Maps.</li>
+          <li>Thông tin vị trí giúp đánh giá khu vực, khả năng thanh khoản và giá trị tham khảo của tài sản.</li>
+          <li>Nếu có thể, gửi thêm địa chỉ gần đúng gồm phường/xã, quận/huyện, tỉnh/thành phố.</li>
+          <li>Vị trí càng rõ thì quá trình định hướng hạn mức vay càng nhanh và chính xác hơn.</li>
         </ul>
+
+        <p><strong>3. Hiện trạng tài sản</strong></p>
+        <ul>
+          <li>Gửi hình ảnh thực tế của tài sản hiện tại.</li>
+          <li>Nếu là đất trống, cần chụp rõ mặt tiền, khu đất và khu vực xung quanh.</li>
+          <li>Nếu có nhà, cần chụp mặt ngoài, đường vào nhà và một số góc thể hiện tình trạng xây dựng.</li>
+          <li>Hiện trạng tài sản giúp KYFAN đánh giá mức độ phù hợp khi tư vấn phương án vay.</li>
+        </ul>
+
+        <p><strong>4. Độ rộng đường trước nhà</strong></p>
+        <ul>
+          <li>Cung cấp thông tin đường trước nhà rộng khoảng bao nhiêu mét.</li>
+          <li>Có thể chụp ảnh con đường phía trước tài sản để dễ đánh giá thực tế.</li>
+          <li>Đường ô tô vào được, đường hẻm nhỏ, đường bê tông hay đường đất đều ảnh hưởng đến giá trị tài sản.</li>
+          <li>Thông tin này giúp quá trình phân tích hồ sơ sát hơn với tiêu chí thẩm định.</li>
+        </ul>
+
+        <p>Chỉ cần chuẩn bị đủ 4 nhóm thông tin trên, KYFAN có thể hỗ trợ kiểm tra sơ bộ hồ sơ, đánh giá tình trạng tài sản và tư vấn hướng xử lý phù hợp trước khi triển khai các bước tiếp theo.</p>
       `,
     },
+
     3: {
-      icon: "🗓️",
-      tag: "Dự án",
-      date: "01/05/2026",
-      cat: "Dự án triển khai",
-      title: "Dự Án Hỗ Trợ Đáo Hạn Tháng 5/2026",
+      image: "./tongketquy12026.png",
+      fallbackIcon: "📊",
+      tag: "Tổng kết quý",
+      date: "31/03/2026",
+      cat: "Kết quả hỗ trợ khách hàng",
+      title: "Tổng Kết Quý 1/2026: KYFAN Đã Hỗ Trợ 55+ Khách Hàng",
       content: `
-        <p>KYFAN đang triển khai chương trình hỗ trợ khách hàng có khoản vay đến hạn trong tháng 5 và tháng 6 năm 2026.</p>
+        <p>Trong Quý 1/2026, KYFAN đã đồng hành và hỗ trợ thành công hơn <strong>55 khách hàng</strong> trong các nhu cầu liên quan đến vay thế chấp, nâng hạn mức, đáo hạn khoản vay và xử lý hồ sơ cần tư vấn chuyên sâu.</p>
+
+        <p>Toàn bộ thông tin khách hàng đều được KYFAN bảo mật tuyệt đối. Dưới đây là phần tổng hợp theo dạng ẩn danh nhằm giúp khách hàng mới có thêm cơ sở tham khảo về năng lực xử lý hồ sơ thực tế.</p>
+
+        <p><strong>Một số nhóm hồ sơ đã được KYFAN hỗ trợ trong Quý 1/2026:</strong></p>
+
         <ul>
-          <li>Tiếp nhận và phân tích hồ sơ đáo hạn</li>
-          <li>Tư vấn phương án đáo hạn tối ưu</li>
-          <li>Hỗ trợ xử lý thủ tục ngân hàng</li>
-          <li>Cam kết xử lý theo tình trạng thực tế của hồ sơ</li>
+          <li>Khách hàng N.T.H — khu vực Hà Nội — hỗ trợ phân tích hồ sơ vay thế chấp sổ hồng.</li>
+          <li>Khách hàng P.V.M — khu vực Long Biên — tư vấn phương án nâng hạn mức vay theo giá trị tài sản.</li>
+          <li>Khách hàng T.T.L — khu vực Hoàng Mai — hỗ trợ chuẩn bị hồ sơ đáo hạn khoản vay đúng thời điểm.</li>
+          <li>Khách hàng H.M.K — khu vực Đống Đa — tư vấn xử lý hồ sơ từng gặp vướng mắc khi xét duyệt.</li>
+          <li>Khách hàng L.A.P — khu vực Cầu Giấy — hỗ trợ đánh giá lại tài sản và định hướng phương án vay phù hợp.</li>
+          <li>Khách hàng V.T.N — khu vực Hà Đông — tư vấn cơ cấu lại khoản vay để giảm áp lực dòng tiền.</li>
+          <li>Khách hàng Đ.Q.A — khu vực Thanh Xuân — hỗ trợ rà soát hồ sơ tài sản trước khi gửi ngân hàng.</li>
         </ul>
+
+        <p><strong>Kết quả nổi bật trong Quý 1/2026:</strong></p>
+
+        <ul>
+          <li>Hỗ trợ hơn <strong>55 khách hàng</strong> có nhu cầu vay thế chấp, nâng hạn mức và đáo hạn khoản vay.</li>
+          <li>Tiếp nhận nhiều nhóm hồ sơ cần xử lý linh hoạt theo từng tình trạng cụ thể.</li>
+          <li>Hỗ trợ khách hàng chuẩn bị thông tin tài sản gồm sổ hồng, vị trí, hiện trạng và độ rộng đường trước nhà.</li>
+          <li>Tư vấn phương án theo hướng rõ ràng, dễ hiểu và phù hợp với nhu cầu thực tế.</li>
+          <li>Bảo mật tuyệt đối thông tin cá nhân, thông tin tài sản và tình trạng tài chính của khách hàng.</li>
+        </ul>
+
+        <p>KYFAN luôn đặt yếu tố <strong>uy tín, minh bạch và bảo mật</strong> lên hàng đầu. Mỗi hồ sơ đều được xem xét theo tình trạng riêng, không áp dụng một phương án chung cho tất cả khách hàng.</p>
+
+        <p>Trong các quý tiếp theo, KYFAN tiếp tục mở rộng hỗ trợ cho các khách hàng có nhu cầu vay thế chấp sổ hồng, nâng hạn mức, đáo hạn khoản vay và đặc biệt là các trường hợp hồ sơ khó cần phân tích chuyên sâu.</p>
       `,
     },
+
     4: {
-      icon: "📊",
+      image: "./phantichcthitruong.png",
+      fallbackIcon: "🏙️",
       tag: "Thị trường",
       date: "28/04/2026",
       cat: "Phân tích thị trường",
-      title: "Thị Trường BĐS Hà Nội Tháng 5/2026",
+      title: "Phân Tích Thị Trường Bất Động Sản Miền Bắc 2026",
       content: `
-        <p>Thị trường bất động sản Hà Nội trong quý 2/2026 ghi nhận nhiều tín hiệu tích cực sau giai đoạn điều chỉnh.</p>
+        <p>Thị trường bất động sản miền Bắc trong năm 2026 tiếp tục có sự phân hóa rõ rệt giữa các khu vực trung tâm, vùng ven và các tỉnh đang phát triển mạnh về hạ tầng. Đây là giai đoạn khách hàng cần nhìn nhận kỹ hơn về giá trị tài sản, khả năng thanh khoản và phương án tài chính phù hợp trước khi vay thế chấp, nâng hạn mức hoặc cơ cấu lại khoản vay.</p>
+
+        <p><strong>1. Khu vực Hà Nội vẫn giữ vai trò trung tâm</strong></p>
         <ul>
-          <li>Bất động sản nội thành duy trì giá trị ổn định</li>
-          <li>Khu vực Long Biên, Gia Lâm có tín hiệu tích cực nhờ hạ tầng</li>
-          <li>Căn hộ chung cư tầm trung được đánh giá khả quan hơn</li>
+          <li>Bất động sản tại các quận nội thành như Đống Đa, Hai Bà Trưng, Cầu Giấy, Thanh Xuân vẫn duy trì giá trị ổn định nhờ nhu cầu ở thực cao.</li>
+          <li>Các khu vực ven đô như Long Biên, Đông Anh, Gia Lâm, Hoài Đức và Hà Đông tiếp tục được quan tâm nhờ hạ tầng giao thông mở rộng.</li>
+          <li>Tài sản có pháp lý rõ ràng, vị trí thuận tiện và đường trước nhà tốt vẫn có lợi thế khi xét duyệt hồ sơ thế chấp.</li>
         </ul>
+
+        <p><strong>2. Các tỉnh vệ tinh miền Bắc có nhiều tín hiệu đáng chú ý</strong></p>
+        <ul>
+          <li>Bắc Ninh, Hưng Yên, Hải Phòng, Hải Dương, Thái Nguyên và Vĩnh Phúc tiếp tục hưởng lợi từ khu công nghiệp, giao thông liên vùng và dòng dịch chuyển dân cư.</li>
+          <li>Những khu vực gần trục đường lớn, khu đô thị mới hoặc khu công nghiệp có khả năng được đánh giá tích cực hơn khi phân tích tài sản.</li>
+          <li>Tuy nhiên, mức độ tăng giá không đồng đều, vì vậy khách hàng cần kiểm tra kỹ pháp lý, vị trí và hiện trạng trước khi quyết định sử dụng tài sản để vay vốn.</li>
+        </ul>
+
+        <p><strong>3. Giá trị tài sản phụ thuộc nhiều vào pháp lý và hiện trạng thực tế</strong></p>
+        <ul>
+          <li>Sổ hồng/sổ đỏ rõ ràng là yếu tố quan trọng đầu tiên khi xem xét hồ sơ vay thế chấp.</li>
+          <li>Vị trí tài sản, độ rộng đường trước nhà, khả năng ô tô vào được hay không đều ảnh hưởng trực tiếp đến việc định hướng hạn mức.</li>
+          <li>Tài sản có nhà ở, đất trống, đất trong ngõ nhỏ hoặc tài sản cần kiểm tra thêm quy hoạch sẽ có cách phân tích khác nhau.</li>
+          <li>Khách hàng nên chuẩn bị hình ảnh sổ hồng, vị trí tài sản, hiện trạng thực tế và thông tin đường trước nhà để được tư vấn nhanh hơn.</li>
+        </ul>
+
+        <p><strong>4. Nhu cầu vay thế chấp và đáo hạn vẫn ở mức cao</strong></p>
+        <ul>
+          <li>Nhiều khách hàng có nhu cầu sử dụng tài sản để bổ sung vốn kinh doanh, cơ cấu dòng tiền hoặc xử lý khoản vay đến hạn.</li>
+          <li>Các hồ sơ cần nâng hạn mức, đáo hạn khoản vay hoặc từng gặp vướng mắc khi xét duyệt cần được phân tích kỹ trước khi triển khai.</li>
+          <li>Việc lựa chọn phương án tài chính phù hợp giúp khách hàng hạn chế rủi ro, tránh áp lực lãi vay và chủ động hơn trong kế hoạch tài chính.</li>
+        </ul>
+
+        <p><strong>Thông điệp từ KYFAN:</strong></p>
+        <p>Thị trường có thể biến động, giá trị tài sản có thể thay đổi theo từng khu vực và từng thời điểm. Nhưng KYFAN luôn kiên định với mục tiêu đồng hành cùng khách hàng bằng những giải pháp rõ ràng, phù hợp và an toàn nhất.</p>
+
+        <p><strong>Thị trường biến động, nhưng KYFAN luôn nỗ lực mang lại những giải pháp tài chính tốt nhất cho khách hàng.</strong> Mỗi hồ sơ đều được xem xét theo tình trạng riêng, phân tích dựa trên tài sản thực tế, nhu cầu vốn và khả năng xử lý phù hợp.</p>
+
+        <p>KYFAN cam kết tư vấn minh bạch, bảo mật thông tin khách hàng và đồng hành trong các nhu cầu vay thế chấp sổ hồng, nâng hạn mức, đáo hạn khoản vay và xử lý hồ sơ khó tại khu vực miền Bắc.</p>
       `,
     },
   };
@@ -358,7 +447,10 @@
     if (!data || !newsOverlay || !newsPopupContent) return;
 
     newsPopupContent.innerHTML = `
-      <div class="news-popup-hero">${data.icon}</div>
+      <div class="news-popup-hero">
+        <img class="news-popup-img" src="${data.image}" alt="${data.title}" loading="lazy" decoding="async"
+          onerror="this.classList.add('is-error'); this.closest('.news-popup-hero').dataset.fallback='${data.fallbackIcon || "📰"}';">
+      </div>
 
       <div class="news-popup-body">
         <span class="news-popup-tag">${data.tag}</span>

@@ -3326,3 +3326,316 @@ a.footer-contact-val:hover {
         display: none
     }
 }
+
+/* ══════════════════════════════════════════════════════════
+   UPDATE: News cards use real illustrative images instead of emoji icons
+══════════════════════════════════════════════════════════ */
+.news-card-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    background: linear-gradient(135deg, #eaf3ff, #d8e9ff);
+    transition: transform .38s var(--ease), filter .38s var(--ease);
+}
+
+.news-card--featured .news-card-img {
+    aspect-ratio: 4 / 3;
+}
+
+.news-card:hover .news-card-img,
+.news-card:focus .news-card-img {
+    transform: scale(1.04);
+    filter: saturate(1.06) contrast(1.04);
+}
+
+.news-card-img-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(0, 31, 90, .02) 0%, rgba(0, 31, 90, .18) 100%),
+        radial-gradient(circle at 18% 12%, rgba(248, 196, 0, .22), transparent 34%);
+    pointer-events: none;
+}
+
+.news-tag {
+    z-index: 2;
+}
+
+.news-popup-hero {
+    position: relative;
+    width: 100%;
+    min-height: 240px;
+    max-height: 340px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #eaf3ff, #d8e9ff);
+    font-size: 0;
+}
+
+.news-popup-img {
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    max-height: 340px;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+.news-popup-img.is-error {
+    display: none;
+}
+
+.news-popup-hero[data-fallback]::before {
+    content: attr(data-fallback);
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 72px;
+    background: linear-gradient(135deg, #eaf3ff, #d8e9ff);
+}
+
+@media (max-width: 920px) {
+
+    .news-card-img,
+    .news-card--featured .news-card-img {
+        aspect-ratio: 16 / 9;
+    }
+
+    .news-popup-hero,
+    .news-popup-img {
+        min-height: 210px;
+        max-height: 280px;
+    }
+}
+
+/* ================================
+   FLOATING CTA - FIX CANH PHẢI
+   ================================ */
+
+.floating-cta {
+    position: fixed;
+    right: 18px;
+    bottom: 22px;
+    z-index: 90;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+/* Button mặc định: Hotline + Zalo vẫn giữ dạng tròn */
+.floating-cta__btn {
+    position: relative;
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 999px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+    font-size: 22px;
+    font-weight: 950;
+
+    box-shadow: 0 16px 36px rgba(0, 42, 120, .25);
+    cursor: pointer;
+
+    animation: ctaShake 2.8s ease-in-out infinite;
+    transition:
+        transform .24s var(--ease),
+        box-shadow .24s var(--ease);
+}
+
+/* Giữ hiệu ứng pulse cho từng button */
+.floating-cta__btn::before,
+.floating-cta__btn::after {
+    content: "";
+    position: absolute;
+    inset: -7px;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: .55;
+    animation: ctaPulse 2s ease-out infinite;
+}
+
+.floating-cta__btn::after {
+    animation-delay: .48s;
+}
+
+.floating-cta__btn:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 24px 52px rgba(0, 42, 120, .34);
+}
+
+/* Button Tính Lãi Suất dạng ngang */
+.floating-cta__btn--interest {
+    width: auto;
+    min-width: 152px;
+    height: 54px;
+
+    padding: 0 15px 0 8px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+
+    border-radius: 999px;
+
+    color: #002f83;
+    background:
+        radial-gradient(circle at 18% 18%, rgba(255, 255, 255, .78), transparent 32%),
+        linear-gradient(135deg, #ffe16d 0%, #f8c400 48%, #d89400 100%);
+
+    border: 4px solid rgba(255, 235, 130, .45);
+
+    box-shadow:
+        0 14px 34px rgba(248, 196, 0, .35),
+        0 8px 18px rgba(0, 47, 131, .16),
+        inset 0 1px 0 rgba(255, 255, 255, .86);
+}
+
+/* Icon túi tiền trong button ngang */
+.floating-cta__btn--interest .calc-icon-text {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+
+    border-radius: 50%;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, .96);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .95),
+        0 6px 14px rgba(0, 47, 131, .18);
+}
+
+.floating-cta__btn--interest .money-bag-icon {
+    width: 27px;
+    height: 27px;
+    display: block;
+}
+
+/* Text Tính Lãi Suất */
+.floating-cta-text {
+    display: inline-flex;
+    align-items: center;
+
+    white-space: nowrap;
+    line-height: 1;
+
+    color: #002f83;
+
+    font-size: 12px;
+    font-weight: 950;
+    letter-spacing: .2px;
+    text-transform: uppercase;
+
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .45);
+}
+
+/* Không dùng tooltip cũ cho nút ngang */
+.floating-cta__btn--interest .floating-label {
+    display: none;
+}
+
+/* Hotline */
+.floating-cta__btn--call {
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+}
+
+/* Zalo */
+.floating-cta__btn--zalo {
+    background: linear-gradient(135deg, #05a8ff, #0068ff);
+    animation-delay: .35s;
+}
+
+/* Tooltip cho Hotline + Zalo */
+.floating-label {
+    position: absolute;
+    right: 70px;
+    top: 50%;
+
+    height: 38px;
+    padding: 0 14px;
+
+    border-radius: 999px;
+
+    display: flex;
+    align-items: center;
+
+    white-space: nowrap;
+
+    color: #1f2633;
+    background: #fff;
+
+    box-shadow: 0 14px 36px rgba(0, 42, 120, .16);
+
+    font-size: 13px;
+    font-weight: 950;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transform: translateY(-50%) translateX(8px);
+    transition: .24s var(--ease);
+}
+
+.floating-cta__btn:hover .floating-label {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+    .floating-cta {
+        right: 12px;
+        bottom: 16px;
+        gap: 10px;
+        align-items: flex-end;
+    }
+
+    .floating-cta__btn {
+        width: 54px;
+        height: 54px;
+    }
+
+    .floating-cta__btn--interest {
+        width: auto;
+        min-width: 138px;
+        height: 50px;
+        padding: 0 12px 0 7px;
+        gap: 7px;
+    }
+
+    .floating-cta__btn--interest .calc-icon-text {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+    }
+
+    .floating-cta__btn--interest .money-bag-icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .floating-cta-text {
+        font-size: 11px;
+    }
+
+    .floating-label {
+        display: none;
+    }
+}
