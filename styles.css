@@ -1618,6 +1618,18 @@ button {
     flex-shrink: 0
 }
 
+.footer-contact-icon-zalo {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgb(5, 147, 241);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    flex-shrink: 0
+}
+
 .footer-contact-label {
     display: block;
     font-size: 11px;
