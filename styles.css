@@ -1066,47 +1066,145 @@ button {
 
 .news-card-img-wrap {
     position: relative;
-    overflow: hidden
-}
-
-.news-img-placeholder {
     width: 100%;
-    aspect-ratio: 16 / 9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    overflow: visible;
     background: linear-gradient(135deg, #eaf3ff, #d8e9ff);
-    font-size: 44px
 }
 
-.news-card--featured .news-img-placeholder {
-    aspect-ratio: 4 / 3;
-    font-size: 68px
+.news-card-img {
+    width: 100%;
+    height: auto;
+
+    max-width: 100%;
+    max-height: none;
+
+    display: block;
+
+    object-fit: contain;
+    object-position: center;
+
+    background: #eaf3ff;
+}
+
+/* Card nổi bật vẫn giữ ảnh đầy đủ, không crop */
+.news-card--featured .news-card-img {
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Không zoom ảnh khi hover để tránh cảm giác ảnh bị cắt */
+.news-card:hover .news-card-img,
+.news-card:focus .news-card-img {
+    transform: none;
+    filter: none;
+}
+
+/* Overlay vẫn giữ nhưng không làm ảnh bị che quá mạnh */
+.news-card-img-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(180deg, rgba(0, 31, 90, .02) 0%, rgba(0, 31, 90, .08) 100%),
+        radial-gradient(circle at 18% 12%, rgba(248, 196, 0, .12), transparent 34%);
+
+    pointer-events: none;
 }
 
 .news-tag {
     position: absolute;
-    top: 12px;
-    left: 12px;
-    padding: 4px 12px;
+    top: 14px;
+    left: 14px;
+    z-index: 5;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    min-height: 30px;
+    padding: 7px 14px;
+
     border-radius: 999px;
+
     font-size: 11px;
-    font-weight: 900;
-    letter-spacing: .4px;
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: .55px;
     text-transform: uppercase;
-    background: rgba(0, 79, 196, .12);
-    color: var(--blue);
-    backdrop-filter: blur(8px)
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 8px 22px rgba(217, 230, 255, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, .42);
 }
 
+/* Tag Mới nhất nổi bật hơn */
 .news-tag--hot {
-    background: var(--yellow);
-    color: #7a4800
+    color: #ffffff;
+
+    background:
+        radial-gradient(circle at 22% 18%, rgba(255, 255, 255, .38), transparent 34%),
+        linear-gradient(135deg, #ff3b30 0%, #e00000 48%, #9f0000 100%);
+
+    border: 1px solid rgba(255, 255, 255, .72);
+
+    box-shadow:
+        0 10px 26px rgba(224, 0, 0, .35),
+        0 4px 12px rgba(0, 0, 0, .16),
+        inset 0 1px 0 rgba(255, 255, 255, .52);
+}
+
+/* Thêm chấm sáng trước chữ Mới nhất */
+.news-tag--hot::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px rgba(255, 255, 255, .18),
+        0 0 12px rgba(255, 255, 255, .9);
+}
+
+/* Hiệu ứng nhẹ để tạo cảm giác tin mới */
+.news-card--featured .news-tag--hot {
+    animation: newsHotPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes newsHotPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow:
+            0 10px 26px rgba(224, 0, 0, .35),
+            0 4px 12px rgba(0, 0, 0, .16),
+            inset 0 1px 0 rgba(255, 255, 255, .52);
+    }
+
+    50% {
+        transform: scale(1.04);
+        box-shadow:
+            0 14px 34px rgba(224, 0, 0, .48),
+            0 6px 16px rgba(255, 219, 219, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, .62);
+    }
 }
 
 .news-tag--new {
     background: rgba(0, 200, 120, .15);
-    color: #006633
+    color: #04e2ff
 }
 
 .news-card-body {
@@ -3327,278 +3425,170 @@ a.footer-contact-val:hover {
     }
 }
 
-/* ══════════════════════════════════════════════════════════
-   UPDATE: News cards use real illustrative images instead of emoji icons
-══════════════════════════════════════════════════════════ */
-.news-card-img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-    background: linear-gradient(135deg, #eaf3ff, #d8e9ff);
-    transition: transform .38s var(--ease), filter .38s var(--ease);
-}
-
-.news-card--featured .news-card-img {
-    aspect-ratio: 4 / 3;
-}
-
-.news-card:hover .news-card-img,
-.news-card:focus .news-card-img {
-    transform: scale(1.04);
-    filter: saturate(1.06) contrast(1.04);
-}
-
-.news-card-img-wrap::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(180deg, rgba(0, 31, 90, .02) 0%, rgba(0, 31, 90, .18) 100%),
-        radial-gradient(circle at 18% 12%, rgba(248, 196, 0, .22), transparent 34%);
-    pointer-events: none;
-}
-
-.news-tag {
-    z-index: 2;
-}
-
-.news-popup-hero {
-    position: relative;
-    width: 100%;
-    min-height: 240px;
-    max-height: 340px;
+/* =========================================================
+   FINAL FIX PACK - KYFAN logic/layout hardening
+   ========================================================= */
+body.modal-open {
     overflow: hidden;
-    background: linear-gradient(135deg, #eaf3ff, #d8e9ff);
-    font-size: 0;
 }
 
-.news-popup-img {
+/* Service cards are real buttons, but must keep card layout exactly. */
+.service-card {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.service-card:focus-visible,
+.news-card:focus-visible,
+.floating-cta__btn:focus-visible,
+.calc-run-btn:focus-visible,
+.calc-reset-btn:focus-visible {
+    outline: 3px solid rgba(248, 196, 0, .72);
+    outline-offset: 3px;
+}
+
+.service-card .service-card-more {
+    margin-top: 18px;
+}
+
+/* Popup stacking order: service > news > calculator, but all remain closable. */
+.service-overlay {
+    z-index: 320;
+}
+
+.news-overlay {
+    z-index: 300;
+}
+
+.calc-overlay {
+    z-index: 200;
+}
+
+.service-popup-content,
+.news-popup-content,
+.calc-body {
+    scrollbar-width: thin;
+}
+
+/* Fixed footer map structure. Works even if the map is placed inside the contact column. */
+.footer-contact-item--map {
+    width: 100%;
+    align-items: flex-start;
+}
+
+.footer-map-content {
+    width: 100%;
+    min-width: 0;
+}
+
+.footer-map-box {
+    width: 100%;
+    max-width: 100%;
+    height: 190px;
+    margin-top: 12px;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .06);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .18);
+}
+
+.footer-map-box iframe {
+    display: block;
     width: 100%;
     height: 100%;
-    min-height: 240px;
-    max-height: 340px;
-    display: block;
-    object-fit: cover;
-    object-position: center;
+    border: 0;
 }
 
-.news-popup-img.is-error {
-    display: none;
-}
-
-.news-popup-hero[data-fallback]::before {
-    content: attr(data-fallback);
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    font-size: 72px;
-    background: linear-gradient(135deg, #eaf3ff, #d8e9ff);
-}
-
-@media (max-width: 920px) {
-
-    .news-card-img,
-    .news-card--featured .news-card-img {
-        aspect-ratio: 16 / 9;
-    }
-
-    .news-popup-hero,
-    .news-popup-img {
-        min-height: 210px;
-        max-height: 280px;
-    }
-}
-
-/* ================================
-   FLOATING CTA - FIX CANH PHẢI
-   ================================ */
-
+/* Floating CTA: all buttons stay attached to the right edge. */
 .floating-cta {
     position: fixed;
     right: 18px;
     bottom: 22px;
     z-index: 90;
-
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 12px;
 }
 
-/* Button mặc định: Hotline + Zalo vẫn giữ dạng tròn */
-.floating-cta__btn {
-    position: relative;
-
-    width: 58px;
-    height: 58px;
-
-    border-radius: 999px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    color: #fff;
-    font-size: 22px;
-    font-weight: 950;
-
-    box-shadow: 0 16px 36px rgba(0, 42, 120, .25);
-    cursor: pointer;
-
-    animation: ctaShake 2.8s ease-in-out infinite;
-    transition:
-        transform .24s var(--ease),
-        box-shadow .24s var(--ease);
-}
-
-/* Giữ hiệu ứng pulse cho từng button */
-.floating-cta__btn::before,
-.floating-cta__btn::after {
-    content: "";
-    position: absolute;
-    inset: -7px;
-    z-index: -1;
-    border-radius: inherit;
-    opacity: .55;
-    animation: ctaPulse 2s ease-out infinite;
-}
-
-.floating-cta__btn::after {
-    animation-delay: .48s;
-}
-
-.floating-cta__btn:hover {
-    transform: translateY(-4px) scale(1.04);
-    box-shadow: 0 24px 52px rgba(0, 42, 120, .34);
-}
-
-/* Button Tính Lãi Suất dạng ngang */
 .floating-cta__btn--interest {
     width: auto;
-    min-width: 152px;
+    min-width: 136px;
     height: 54px;
-
     padding: 0 15px 0 8px;
-
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 8px;
-
+    gap: 9px;
     border-radius: 999px;
-
     color: #002f83;
     background:
-        radial-gradient(circle at 18% 18%, rgba(255, 255, 255, .78), transparent 32%),
-        linear-gradient(135deg, #ffe16d 0%, #f8c400 48%, #d89400 100%);
-
-    border: 4px solid rgba(255, 235, 130, .45);
-
+        radial-gradient(circle at 18% 18%, rgba(255, 255, 255, .85), transparent 30%),
+        linear-gradient(135deg, #ffe77a 0%, #f8c400 48%, #d89400 100%);
+    border: 3px solid rgba(255, 239, 145, .58);
     box-shadow:
         0 14px 34px rgba(248, 196, 0, .35),
         0 8px 18px rgba(0, 47, 131, .16),
-        inset 0 1px 0 rgba(255, 255, 255, .86);
+        inset 0 1px 0 rgba(255, 255, 255, .9);
 }
 
-/* Icon túi tiền trong button ngang */
-.floating-cta__btn--interest .calc-icon-text {
+.floating-interest-icon {
     width: 38px;
     height: 38px;
     flex: 0 0 38px;
-
-    border-radius: 50%;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    background: rgba(255, 255, 255, .96);
-
+    border-radius: 50%;
+    color: #fff;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, .32), transparent 35%),
+        linear-gradient(135deg, #004fc4, #002f83);
+    font-size: 20px;
+    font-weight: 950;
+    line-height: 1;
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, .95),
-        0 6px 14px rgba(0, 47, 131, .18);
+        0 6px 14px rgba(0, 47, 131, .28),
+        inset 0 1px 0 rgba(255, 255, 255, .22);
 }
 
-.floating-cta__btn--interest .money-bag-icon {
-    width: 27px;
-    height: 27px;
-    display: block;
-}
-
-/* Text Tính Lãi Suất */
-.floating-cta-text {
+.floating-cta__btn--interest .floating-cta-text {
     display: inline-flex;
     align-items: center;
-
     white-space: nowrap;
-    line-height: 1;
-
     color: #002f83;
-
-    font-size: 12px;
-    font-weight: 950;
-    letter-spacing: .2px;
-    text-transform: uppercase;
-
-    text-shadow: 0 1px 0 rgba(255, 255, 255, .45);
-}
-
-/* Không dùng tooltip cũ cho nút ngang */
-.floating-cta__btn--interest .floating-label {
-    display: none;
-}
-
-/* Hotline */
-.floating-cta__btn--call {
-    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-}
-
-/* Zalo */
-.floating-cta__btn--zalo {
-    background: linear-gradient(135deg, #05a8ff, #0068ff);
-    animation-delay: .35s;
-}
-
-/* Tooltip cho Hotline + Zalo */
-.floating-label {
-    position: absolute;
-    right: 70px;
-    top: 50%;
-
-    height: 38px;
-    padding: 0 14px;
-
-    border-radius: 999px;
-
-    display: flex;
-    align-items: center;
-
-    white-space: nowrap;
-
-    color: #1f2633;
-    background: #fff;
-
-    box-shadow: 0 14px 36px rgba(0, 42, 120, .16);
-
     font-size: 13px;
     font-weight: 950;
-
-    opacity: 0;
-    pointer-events: none;
-
-    transform: translateY(-50%) translateX(8px);
-    transition: .24s var(--ease);
+    letter-spacing: .3px;
+    text-transform: uppercase;
+    line-height: 1;
 }
 
-.floating-cta__btn:hover .floating-label {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
+@media (max-width: 920px) {
+
+    .service-overlay,
+    .news-overlay,
+    .calc-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .service-popup,
+    .news-popup,
+    .calc-panel {
+        max-width: 100%;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+
+    .footer-map-box {
+        height: 220px;
+    }
 }
 
-/* Mobile */
 @media (max-width: 520px) {
     .floating-cta {
         right: 12px;
@@ -3607,35 +3597,474 @@ a.footer-contact-val:hover {
         align-items: flex-end;
     }
 
-    .floating-cta__btn {
-        width: 54px;
-        height: 54px;
-    }
-
     .floating-cta__btn--interest {
-        width: auto;
-        min-width: 138px;
+        min-width: 122px;
         height: 50px;
         padding: 0 12px 0 7px;
         gap: 7px;
     }
 
-    .floating-cta__btn--interest .calc-icon-text {
-        width: 36px;
-        height: 36px;
-        flex-basis: 36px;
+    .floating-interest-icon {
+        width: 35px;
+        height: 35px;
+        flex-basis: 35px;
+        font-size: 18px;
     }
 
-    .floating-cta__btn--interest .money-bag-icon {
-        width: 25px;
-        height: 25px;
+    .floating-cta__btn--interest .floating-cta-text {
+        font-size: 12px;
     }
 
-    .floating-cta-text {
-        font-size: 11px;
+    .footer-map-box {
+        height: 190px;
+        border-radius: 14px;
+    }
+}
+
+
+/* =========================================================
+   FINAL STABILITY OVERRIDES
+   ========================================================= */
+.service-card {
+    appearance: none;
+    width: 100%;
+    font: inherit;
+    color: inherit;
+}
+
+.service-card:focus-visible,
+.news-card:focus-visible,
+.floating-cta__btn:focus-visible,
+.calc-run-btn:focus-visible,
+.calc-reset-btn:focus-visible {
+    outline: 3px solid rgba(248, 196, 0, .85);
+    outline-offset: 3px;
+}
+
+.floating-cta {
+    position: fixed;
+    right: 18px;
+    bottom: 22px;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.floating-cta__btn--interest {
+    width: auto;
+    min-width: 136px;
+    height: 54px;
+    padding: 0 15px 0 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 9px;
+    border-radius: 999px;
+    color: #002f83;
+    background: radial-gradient(circle at 18% 18%, rgba(255, 255, 255, .85), transparent 30%), linear-gradient(135deg, #ffe77a 0%, #f8c400 48%, #d89400 100%);
+    border: 3px solid rgba(255, 239, 145, .58);
+    box-shadow: 0 14px 34px rgba(248, 196, 0, .35), 0 8px 18px rgba(0, 47, 131, .16), inset 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+.floating-interest-icon {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, .32), transparent 35%), linear-gradient(135deg, #004fc4, #002f83);
+    font-size: 20px;
+    font-weight: 950;
+    line-height: 1;
+    box-shadow: 0 6px 14px rgba(0, 47, 131, .28), inset 0 1px 0 rgba(255, 255, 255, .22);
+}
+
+.footer-contact-item--map {
+    align-items: flex-start;
+}
+
+.footer-map-content {
+    width: 100%;
+    min-width: 0;
+}
+
+.footer-map-box {
+    width: 100%;
+    height: 190px;
+    margin-top: 12px;
+    overflow: hidden;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background: rgba(255, 255, 255, .06);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .18);
+}
+
+.footer-map-box iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width:520px) {
+    .floating-cta {
+        right: 12px;
+        bottom: 16px;
+        gap: 10px;
+        align-items: flex-end;
     }
 
-    .floating-label {
-        display: none;
+    .floating-cta__btn--interest {
+        min-width: 122px;
+        height: 50px;
+        padding: 0 12px 0 7px;
+        gap: 7px;
+    }
+
+    .floating-interest-icon {
+        width: 35px;
+        height: 35px;
+        flex-basis: 35px;
+        font-size: 18px;
+    }
+}
+
+
+/* =========================================================
+   V2 FINAL POPUP/CSS FIXES
+   - close buttons always clickable
+   - service popup fully styled
+   - body lock consistent
+   ========================================================= */
+body.modal-open {
+    overflow: hidden !important;
+}
+
+.news-overlay,
+.service-overlay,
+.calc-overlay {
+    visibility: hidden;
+}
+
+.news-overlay.is-open,
+.service-overlay.is-open,
+.calc-overlay.is-open {
+    visibility: visible;
+}
+
+.service-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 320;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(5, 15, 40, .62);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .28s var(--ease), visibility .28s var(--ease);
+}
+
+.service-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.service-popup {
+    position: relative;
+    width: min(820px, 100%);
+    max-height: 88dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background: #fff;
+    box-shadow: 0 40px 100px rgba(0, 30, 100, .28), 0 0 0 1px rgba(0, 79, 196, .1);
+    transform: translateY(28px) scale(.97);
+    transition: transform .3s var(--ease);
+}
+
+.service-overlay.is-open .service-popup {
+    transform: translateY(0) scale(1);
+}
+
+.service-popup-close,
+.news-popup-close,
+.calc-close-btn {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 999 !important;
+}
+
+.service-popup-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--blue);
+    background: rgba(255, 255, 255, .96);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .14);
+    font-size: 16px;
+    font-weight: 950;
+    transition: transform .2s var(--ease), background .2s var(--ease);
+}
+
+.service-popup-close:hover {
+    background: #fff;
+    transform: rotate(90deg) scale(1.04);
+}
+
+.service-popup-content {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.service-popup-hero {
+    min-height: 210px;
+    padding: 42px 44px;
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+    background: radial-gradient(circle at 88% 12%, rgba(248, 196, 0, .35), transparent 32%), linear-gradient(135deg, var(--blue), var(--blue-dark));
+}
+
+.service-popup-kicker {
+    display: inline-flex;
+    width: max-content;
+    margin-bottom: 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: #ffe680;
+    background: rgba(248, 196, 0, .18);
+    border: 1px solid rgba(248, 196, 0, .3);
+    font-size: 12px;
+    font-weight: 950;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+}
+
+.service-popup-title {
+    max-width: 620px;
+    font-size: clamp(26px, 4vw, 38px);
+    line-height: 1.15;
+    font-weight: 950;
+    letter-spacing: -.5px;
+}
+
+.service-popup-body {
+    padding: 34px 40px 38px;
+    display: grid;
+    gap: 26px;
+}
+
+.service-popup-desc {
+    color: #2f3948;
+    font-size: 16px;
+    line-height: 1.85;
+    font-weight: 550;
+}
+
+.service-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.service-detail-box {
+    padding: 20px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, #f8fbff, #fff);
+}
+
+.service-detail-box h4 {
+    margin-bottom: 12px;
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 950;
+    letter-spacing: .35px;
+    text-transform: uppercase;
+}
+
+.service-detail-box ul {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+}
+
+.service-detail-box li {
+    position: relative;
+    padding-left: 18px;
+    color: #3d4d62;
+    font-size: 14px;
+    line-height: 1.65;
+    font-weight: 600;
+}
+
+.service-detail-box li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--yellow);
+    box-shadow: 0 0 10px rgba(248, 196, 0, .55);
+}
+
+.service-popup-note {
+    padding: 18px 20px;
+    border-radius: 18px;
+    color: #2d3849;
+    background: radial-gradient(circle at 95% 20%, rgba(248, 196, 0, .15), transparent 34%), linear-gradient(135deg, #eef5ff, #fff);
+    border: 1px solid rgba(0, 79, 196, .12);
+    font-size: 14px;
+    line-height: 1.75;
+    font-weight: 650;
+}
+
+.service-popup-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.service-popup-cta,
+.service-popup-zalo {
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 950;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+}
+
+.service-popup-cta {
+    color: #fff;
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    box-shadow: 0 14px 34px rgba(0, 79, 196, .26);
+}
+
+.service-popup-zalo {
+    color: var(--blue);
+    background: #f0f6ff;
+    border: 1px solid rgba(0, 79, 196, .14);
+}
+
+.service-card {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.service-card:focus-visible,
+.news-card:focus-visible,
+.floating-cta__btn:focus-visible,
+.calc-run-btn:focus-visible,
+.calc-reset-btn:focus-visible {
+    outline: 3px solid rgba(248, 196, 0, .86);
+    outline-offset: 3px;
+}
+
+@media (max-width: 920px) {
+    .service-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .service-popup {
+        width: 100%;
+        max-width: 100%;
+        max-height: 92dvh;
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+
+    .service-popup-hero {
+        min-height: 180px;
+        padding: 34px 24px;
+    }
+
+    .service-popup-body {
+        padding: 26px 22px 30px;
+    }
+
+    .service-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .service-popup-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .service-popup-cta,
+    .service-popup-zalo {
+        width: 100%;
+    }
+}
+
+.news-popup-hero {
+    width: 100%;
+    min-height: unset;
+    max-height: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: visible;
+    background: linear-gradient(135deg, #eaf3ff, #d8e9ff);
+}
+
+.news-popup-img {
+    width: 100%;
+    height: auto;
+
+    max-width: 100%;
+    max-height: none;
+
+    display: block;
+
+    object-fit: contain;
+    object-position: center;
+
+    background: #eaf3ff;
+}
+
+.news-popup-img.is-error {
+    display: none;
+}
+
+@media (max-width: 920px) {
+    .news-popup-hero {
+        min-height: unset;
+        max-height: none;
+    }
+
+    .news-popup-img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
     }
 }

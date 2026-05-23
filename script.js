@@ -275,7 +275,7 @@
   ══════════════════════════════════════════════════════════ */
   const newsData = {
     1: {
-      image: "./hosokho.png",
+      image: "./",
       fallbackIcon: "📌",
       tag: "Thông báo chính thức",
       date: "01/06/2026",
@@ -1113,7 +1113,170 @@
       },
     });
   }
+  /* ══════════════════════════════════════════════════════════
+   SERVICE DETAIL POPUP
+══════════════════════════════════════════════════════════ */
+  const serviceOverlay = $("#serviceOverlay");
+  const servicePopupContent = $("#servicePopupContent");
+  const serviceCards = $$(".service-card");
 
+  const serviceData = {
+    1: {
+      kicker: "DV 01",
+      title: "Vay Thế Chấp Sổ Hồng",
+      desc: "KYFAN hỗ trợ khách hàng tiếp cận khoản vay phù hợp dựa trên giá trị tài sản thực tế, định hướng hồ sơ rõ ràng, tối ưu hạn mức và đảm bảo quy trình xử lý minh bạch.",
+      details: [
+        {
+          title: "Điểm mạnh",
+          items: [
+            "Định giá tài sản sát thực tế",
+            "Tư vấn phương án vay phù hợp",
+            "Hỗ trợ chuẩn bị hồ sơ rõ ràng",
+            "Bảo mật thông tin khách hàng",
+          ],
+        },
+        {
+          title: "Phù hợp với",
+          items: [
+            "Khách hàng có sổ hồng/sổ đỏ",
+            "Cần vốn kinh doanh hoặc xoay dòng tiền",
+            "Muốn tối ưu hạn mức vay",
+            "Cần giải ngân nhanh và an toàn",
+          ],
+        },
+      ],
+      note: "KYFAN kiểm tra hồ sơ sơ bộ trước khi tư vấn phương án triển khai phù hợp.",
+    },
+
+    2: {
+      kicker: "DV 02",
+      title: "Nâng Hạn Mức Vay",
+      desc: "Dịch vụ giúp khách hàng đánh giá lại tài sản, hồ sơ tài chính và nhu cầu sử dụng vốn để đề xuất phương án nâng hạn mức phù hợp hơn.",
+      details: [
+        {
+          title: "KYFAN hỗ trợ",
+          items: [
+            "Phân tích lại hồ sơ hiện tại",
+            "Đánh giá khả năng tăng hạn mức",
+            "Tư vấn phương án bổ sung hồ sơ",
+            "Định hướng cách làm việc với ngân hàng",
+          ],
+        },
+        {
+          title: "Lợi ích",
+          items: [
+            "Tối ưu nguồn vốn đang có",
+            "Tăng khả năng tiếp cận khoản vay",
+            "Giảm áp lực dòng tiền",
+            "Có phương án xử lý linh hoạt hơn",
+          ],
+        },
+      ],
+      note: "Phù hợp với khách hàng đã có khoản vay nhưng muốn tăng thêm hạn mức dựa trên tài sản.",
+    },
+
+    3: {
+      kicker: "DV 03",
+      title: "Đáo Hạn Khoản Vay",
+      desc: "KYFAN đồng hành xử lý khoản vay đến hạn, giúp khách hàng giảm áp lực tài chính, tránh phát sinh rủi ro và có phương án cơ cấu phù hợp.",
+      details: [
+        {
+          title: "Nội dung hỗ trợ",
+          items: [
+            "Kiểm tra thời điểm đáo hạn",
+            "Tư vấn phương án xử lý trước hạn",
+            "Hỗ trợ cơ cấu lại khoản vay",
+            "Giảm rủi ro chậm thanh toán",
+          ],
+        },
+        {
+          title: "Phù hợp với",
+          items: [
+            "Khách hàng sắp đến hạn khoản vay",
+            "Cần xoay dòng tiền đúng thời điểm",
+            "Muốn duy trì lịch sử tín dụng tốt",
+            "Cần phương án xử lý nhanh",
+          ],
+        },
+      ],
+      note: "Nên kiểm tra khoản vay trước hạn để có nhiều phương án xử lý an toàn hơn.",
+    },
+  };
+
+  function renderServicePopup(service) {
+    if (!servicePopupContent || !service) return;
+
+    servicePopupContent.innerHTML = `
+    <div class="service-popup-hero">
+      <p class="service-popup-kicker">${service.kicker}</p>
+      <h2 class="service-popup-title">${service.title}</h2>
+    </div>
+
+    <div class="service-popup-body">
+      <p class="service-popup-desc">${service.desc}</p>
+
+      <div class="service-detail-grid">
+        ${service.details
+          .map(
+            (box) => `
+              <div class="service-detail-box">
+                <h4>${box.title}</h4>
+                <ul>
+                  ${box.items.map((item) => `<li>${item}</li>`).join("")}
+                </ul>
+              </div>
+            `,
+          )
+          .join("")}
+      </div>
+
+      <div class="service-popup-note">
+        ${service.note}
+      </div>
+
+      <div class="service-popup-actions">
+        <a class="service-popup-cta" href="tel:0339123086">Gọi Hotline</a>
+        <a class="service-popup-zalo" href="https://zalo.me/0339123086" target="_blank" rel="noopener">Nhắn Zalo</a>
+      </div>
+    </div>
+  `;
+  }
+
+  function openService(serviceId) {
+    const service = serviceData[serviceId];
+    if (!service || !serviceOverlay) return;
+
+    renderServicePopup(service);
+
+    serviceOverlay.classList.add("is-open");
+    document.body.classList.add("modal-open");
+    setBodyLock(true);
+  }
+
+  function closeService() {
+    if (!serviceOverlay) return;
+
+    serviceOverlay.classList.remove("is-open");
+    document.body.classList.remove("modal-open");
+    setBodyLock(false);
+  }
+
+  window.openService = openService;
+  window.closeService = closeService;
+
+  serviceCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      openService(card.dataset.service);
+    });
+  });
+
+  if (serviceOverlay) {
+    serviceOverlay.addEventListener("click", (e) => {
+      if (e.target === serviceOverlay) {
+        closeService();
+      }
+    });
+  }
   /* ══════════════════════════════════════════════════════════
      8. GLOBAL KEYDOWN
   ══════════════════════════════════════════════════════════ */
