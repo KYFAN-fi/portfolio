@@ -15,8 +15,17 @@
     return parseFloat(String(value).replace(/\s/g, "").replace(",", ".")) || 0;
   }
 
+  function hasOpenOverlay() {
+    return $$(".calc-overlay, .news-overlay, .service-overlay").some(
+      (overlay) => overlay.classList.contains("is-open"),
+    );
+  }
+
   function setBodyLock(isLocked) {
-    document.body.style.overflow = isLocked ? "hidden" : "";
+    const shouldLock = isLocked || hasOpenOverlay();
+
+    document.body.classList.toggle("modal-open", shouldLock);
+    document.body.style.overflow = shouldLock ? "hidden" : "";
   }
 
   /* ══════════════════════════════════════════════════════════
@@ -25,6 +34,20 @@
   const accordionItems = $$(".accordion-item");
   const navLinks = $$(".nav-link");
   const statNumbers = $$("[data-count]");
+  const navTargetIds = [
+    "home",
+    "about",
+    "capacity",
+    "news",
+    "projects",
+    "contact",
+  ];
+  let navRaf = 0;
+  let navScrollTimer = null;
+  let navLockTimer = null;
+  let navSettleTimer = null;
+  let lockedNavTargetId = "";
+  let isProgrammaticNavScroll = false;
 
   function openAccordion(targetId) {
     if (!targetId) return;
@@ -41,43 +64,253 @@
     });
   }
 
+  function closeAccordion(targetId) {
+    if (!targetId) return;
+
+    const item = document.getElementById(targetId);
+    if (!item || !item.classList.contains("accordion-item")) return;
+
+    item.classList.remove("is-open");
+
+    const btn = $(".accordion-head", item);
+    if (btn) {
+      btn.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  function getNavTargetId(value) {
+    if (!value) return "";
+
+    const hashIndex = value.indexOf("#");
+    const hash = hashIndex >= 0 ? value.slice(hashIndex + 1) : value;
+
+    try {
+      return decodeURIComponent(hash);
+    } catch {
+      return hash;
+    }
+  }
+
+  function isAccordionTarget(targetId) {
+    return accordionItems.some((item) => item.id === targetId);
+  }
+
+  function getScrollOffset() {
+    const mobileTopbar = $(".mobile-topbar");
+    const hasMobileTopbar =
+      window.matchMedia &&
+      window.matchMedia("(max-width: 920px)").matches &&
+      mobileTopbar;
+
+    return hasMobileTopbar ? mobileTopbar.offsetHeight + 12 : 14;
+  }
+
+  function getScrollBehavior(behavior) {
+    if (behavior) return behavior;
+
+    const reduceMotion =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    return reduceMotion ? "auto" : "smooth";
+  }
+
+  function getDocumentTop(element) {
+    return element.getBoundingClientRect().top + window.pageYOffset;
+  }
+
+  function setActiveNav(targetId) {
+    if (!targetId) return;
+
+    navLinks.forEach((link) => {
+      const isActive = link.dataset.target === targetId;
+
+      link.classList.toggle("is-active", isActive);
+
+      if (isActive) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  function lockActiveNav(targetId) {
+    lockedNavTargetId = targetId;
+    setActiveNav(targetId);
+    clearTimeout(navLockTimer);
+
+    navLockTimer = setTimeout(() => {
+      if (lockedNavTargetId === targetId) {
+        lockedNavTargetId = "";
+        updateActiveNavFromScroll();
+      }
+    }, 1400);
+  }
+
+  function releaseActiveNavLock(targetId) {
+    clearTimeout(navLockTimer);
+
+    navLockTimer = setTimeout(() => {
+      if (!targetId || lockedNavTargetId === targetId) {
+        lockedNavTargetId = "";
+        updateActiveNavFromScroll();
+      }
+    }, 180);
+  }
+
+  function markProgrammaticNavScroll() {
+    isProgrammaticNavScroll = true;
+    clearTimeout(navScrollTimer);
+
+    navScrollTimer = setTimeout(() => {
+      isProgrammaticNavScroll = false;
+      updateActiveNavFromScroll();
+    }, 220);
+  }
+
+  function scrollToSection(targetId, options = {}) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const top = getDocumentTop(target) - getScrollOffset();
+
+    markProgrammaticNavScroll();
+
+    window.scrollTo({
+      top: Math.max(0, Math.round(top)),
+      behavior: getScrollBehavior(options.behavior),
+    });
+  }
+
+  function updateHash(targetId, shouldUpdate) {
+    if (!shouldUpdate || !targetId || !history.pushState) return;
+
+    const nextHash = `#${targetId}`;
+    if (window.location.hash !== nextHash) {
+      history.pushState(null, "", nextHash);
+    }
+  }
+
+  function navigateToSection(targetId, options = {}) {
+    if (!navTargetIds.includes(targetId)) return;
+
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    lockActiveNav(targetId);
+
+    if (targetId !== "home" && isAccordionTarget(targetId)) {
+      openAccordion(targetId);
+    }
+
+    clearTimeout(navSettleTimer);
+
+    requestAnimationFrame(() => {
+      scrollToSection(targetId, {
+        behavior: options.behavior,
+      });
+
+      navSettleTimer = setTimeout(
+        () => {
+          scrollToSection(targetId, { behavior: "auto" });
+          setActiveNav(targetId);
+          releaseActiveNavLock(targetId);
+        },
+        isAccordionTarget(targetId) ? 480 : 80,
+      );
+    });
+
+    updateHash(targetId, options.updateHash !== false);
+  }
+
+  function updateActiveNavFromScroll() {
+    if (lockedNavTargetId) {
+      setActiveNav(lockedNavTargetId);
+      return;
+    }
+
+    const targets = navTargetIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean)
+      .sort((a, b) => getDocumentTop(a) - getDocumentTop(b));
+
+    if (!targets.length) return;
+
+    const pageBottom =
+      window.pageYOffset + window.innerHeight >=
+      document.documentElement.scrollHeight - 4;
+    const marker = window.pageYOffset + getScrollOffset() + 36;
+    let activeId = targets[0].id;
+
+    if (pageBottom) {
+      activeId = targets[targets.length - 1].id;
+    } else {
+      for (const target of targets) {
+        const targetTop = getDocumentTop(target);
+        if (targetTop <= marker) {
+          activeId = target.id;
+        } else {
+          break;
+        }
+      }
+    }
+
+    setActiveNav(activeId);
+  }
+
+  function scheduleActiveNavUpdate() {
+    if (lockedNavTargetId) {
+      setActiveNav(lockedNavTargetId);
+      return;
+    }
+
+    if (isProgrammaticNavScroll) {
+      clearTimeout(navScrollTimer);
+      navScrollTimer = setTimeout(() => {
+        isProgrammaticNavScroll = false;
+        updateActiveNavFromScroll();
+      }, 160);
+      return;
+    }
+
+    if (navRaf) return;
+
+    navRaf = requestAnimationFrame(() => {
+      navRaf = 0;
+      updateActiveNavFromScroll();
+    });
+  }
+
   accordionItems.forEach((item) => {
     const btn = $(".accordion-head", item);
     if (!btn) return;
 
     btn.addEventListener("click", () => {
-      const isOpen = item.classList.contains("is-open");
-
-      accordionItems.forEach((other) => {
-        other.classList.remove("is-open");
-
-        const otherBtn = $(".accordion-head", other);
-        if (otherBtn) {
-          otherBtn.setAttribute("aria-expanded", "false");
-        }
-      });
-
-      if (!isOpen) {
-        item.classList.add("is-open");
-        btn.setAttribute("aria-expanded", "true");
+      if (item.classList.contains("is-open")) {
+        clearTimeout(navSettleTimer);
+        clearTimeout(navLockTimer);
+        lockedNavTargetId = "";
+        closeAccordion(item.id);
+        requestAnimationFrame(updateActiveNavFromScroll);
+        return;
       }
+
+      navigateToSection(item.id);
     });
   });
 
   /* ══════════════════════════════════════════════════════════
      2. NAV LINKS
   ══════════════════════════════════════════════════════════ */
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      const target = link.dataset.target;
+  $$('a[href^="#"]').forEach((link) => {
+    const targetId = getNavTargetId(link.getAttribute("href"));
 
-      navLinks.forEach((item) => {
-        item.classList.toggle("is-active", item === link);
-      });
+    if (!navTargetIds.includes(targetId)) return;
 
-      if (target && target !== "home") {
-        openAccordion(target);
-      }
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      navigateToSection(targetId);
     });
   });
 
@@ -133,42 +366,27 @@
   /* ══════════════════════════════════════════════════════════
      4. SCROLL-BASED NAV HIGHLIGHT
   ══════════════════════════════════════════════════════════ */
-  if ("IntersectionObserver" in window) {
-    const sections = [
-      "home",
-      "about",
-      "capacity",
-      "news",
-      "projects",
-      "contact",
-    ]
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
+  window.addEventListener("scroll", scheduleActiveNavUpdate, { passive: true });
+  window.addEventListener("resize", scheduleActiveNavUpdate);
+  window.addEventListener("hashchange", () => {
+    const targetId = getNavTargetId(window.location.hash);
 
-    if (sections.length) {
-      const navObserver = new IntersectionObserver(
-        (entries) => {
-          const visible = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-          if (!visible) return;
-
-          const id = visible.target.id;
-
-          navLinks.forEach((link) => {
-            link.classList.toggle("is-active", link.dataset.target === id);
-          });
-        },
-        {
-          root: null,
-          threshold: [0.2, 0.45, 0.7],
-          rootMargin: "-18% 0px -65% 0px",
-        },
-      );
-
-      sections.forEach((section) => navObserver.observe(section));
+    if (navTargetIds.includes(targetId)) {
+      navigateToSection(targetId, { updateHash: false });
     }
+  });
+
+  const initialTargetId = getNavTargetId(window.location.hash);
+
+  if (navTargetIds.includes(initialTargetId)) {
+    requestAnimationFrame(() => {
+      navigateToSection(initialTargetId, {
+        behavior: "auto",
+        updateHash: false,
+      });
+    });
+  } else {
+    updateActiveNavFromScroll();
   }
 
   /* ══════════════════════════════════════════════════════════
@@ -487,13 +705,7 @@
     if (!newsOverlay) return;
 
     newsOverlay.classList.remove("is-open");
-
-    const calcOverlay = $("#calcOverlay");
-    const calcIsOpen = calcOverlay && calcOverlay.classList.contains("is-open");
-
-    if (!calcIsOpen) {
-      setBodyLock(false);
-    }
+    setBodyLock(false);
   }
 
   $$(".news-card[data-news]").forEach((card) => {
@@ -540,6 +752,7 @@
       inputR: $("#calcR"),
       runBtn: $("#calcRunBtn"),
       resetBtn: $("#calcResetBtn"),
+      closeBtn: $(".calc-close-btn"),
       resultArea: $("#calcResult"),
     };
   }
@@ -635,11 +848,17 @@
       inputR.value = "";
     }
 
-    const isValid = P > 0 && Y > 0 && R > 0 && Y <= calcMaxYear;
+    const hasValidTerm = Number.isInteger(Y) && Y > 0 && Y <= calcMaxYear;
+    const isValid = P > 0 && R > 0 && hasValidTerm;
 
     runBtn.disabled = !isValid;
 
-    if (Y > calcMaxYear) {
+    if (Y > 0 && !Number.isInteger(Y)) {
+      renderCalcMessage(
+        "warning",
+        "Thời hạn vay cần nhập theo số năm nguyên. Vui lòng nhập lại thời hạn vay.",
+      );
+    } else if (Y > calcMaxYear) {
       renderCalcMessage(
         "warning",
         `Thời hạn vay tối đa là ${calcMaxYear} năm. Vui lòng nhập lại thời hạn vay.`,
@@ -703,17 +922,21 @@
     if (!overlay) return;
 
     overlay.classList.remove("is-open");
-
-    const newsIsOpen = newsOverlay && newsOverlay.classList.contains("is-open");
-
-    if (!newsIsOpen) {
-      setBodyLock(false);
-    }
+    setBodyLock(false);
   };
 
   function bindCalcEvents() {
-    const { overlay, inputP, inputY, inputR, runBtn, resetBtn } =
+    const { overlay, inputP, inputY, inputR, runBtn, resetBtn, closeBtn } =
       getCalcElements();
+
+    $$(".calc-trigger-btn, .cs-cta, .floating-cta__btn--calc").forEach(
+      (btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          window.openCalc();
+        });
+      },
+    );
 
     [inputP, inputY, inputR].forEach((input) => {
       if (!input) return;
@@ -748,6 +971,13 @@
       });
     }
 
+    if (closeBtn) {
+      closeBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.closeCalc();
+      });
+    }
+
     if (overlay) {
       overlay.addEventListener("click", (e) => {
         if (e.target === e.currentTarget) {
@@ -768,6 +998,16 @@
     if (P <= 0 || Y <= 0 || R <= 0) {
       clearCalcResult();
       updateCalcFieldStates();
+      return;
+    }
+
+    if (!Number.isInteger(Y)) {
+      if (runBtn) runBtn.disabled = true;
+
+      renderCalcMessage(
+        "warning",
+        "Thời hạn vay cần nhập theo số năm nguyên. Vui lòng nhập lại thời hạn vay.",
+      );
       return;
     }
 
@@ -1118,6 +1358,7 @@
 ══════════════════════════════════════════════════════════ */
   const serviceOverlay = $("#serviceOverlay");
   const servicePopupContent = $("#servicePopupContent");
+  const servicePopupClose = $("#servicePopupClose");
   const serviceCards = $$(".service-card");
 
   const serviceData = {
@@ -1249,7 +1490,6 @@
     renderServicePopup(service);
 
     serviceOverlay.classList.add("is-open");
-    document.body.classList.add("modal-open");
     setBodyLock(true);
   }
 
@@ -1257,7 +1497,6 @@
     if (!serviceOverlay) return;
 
     serviceOverlay.classList.remove("is-open");
-    document.body.classList.remove("modal-open");
     setBodyLock(false);
   }
 
@@ -1269,6 +1508,10 @@
       openService(card.dataset.service);
     });
   });
+
+  if (servicePopupClose) {
+    servicePopupClose.addEventListener("click", closeService);
+  }
 
   if (serviceOverlay) {
     serviceOverlay.addEventListener("click", (e) => {
@@ -1282,6 +1525,7 @@
   ══════════════════════════════════════════════════════════ */
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
+      closeService();
       closeNews();
 
       if (typeof window.closeCalc === "function") {

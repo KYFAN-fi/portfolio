@@ -58,7 +58,7 @@
                     </p>
                     <div class="hero-actions">
                         <a href="#about" class="primary-btn">Tìm hiểu thêm <span class="arrow">→</span></a>
-                        <button class="calc-trigger-btn" id="calcTriggerHero" onclick="openCalc()" type="button">
+                        <button class="calc-trigger-btn" id="calcTriggerHero" type="button">
                             <span class="calc-trigger-icon" aria-hidden="true">&#9783;</span>
                             Tính khoản vay
                         </button>
@@ -101,77 +101,6 @@
                 <div class="carousel-track-wrap" aria-live="polite">
                     <div class="carousel-track" id="carouselTrack">
 
-                        <style>
-                            .cs-img-wrap {
-                                position: relative;
-                                overflow: hidden;
-                            }
-
-                            .cs-img-demo {
-                                display: block;
-                                width: 100%;
-                                height: 100%;
-                                min-height: 260px;
-                                object-fit: cover;
-                                object-position: center;
-                                border-radius: inherit;
-                                filter: saturate(0.95) contrast(1.02);
-                                transition: transform 0.45s ease, filter 0.45s ease;
-                            }
-
-                            .carousel-slide:hover .cs-img-demo {
-                                transform: scale(1.04);
-                                filter: saturate(1.08) contrast(1.05);
-                            }
-
-                            .cs-img-wrap::after {
-                                content: "";
-                                position: absolute;
-                                inset: 0;
-                                background:
-                                    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.36)),
-                                    radial-gradient(circle at 20% 15%, rgba(255, 215, 120, 0.26), transparent 34%);
-                                pointer-events: none;
-                            }
-
-                            .cs-img-fallback {
-                                display: none;
-                                width: 100%;
-                                min-height: 260px;
-                                place-items: center;
-                                text-align: center;
-                                padding: 28px;
-                                color: #ffffff;
-                                background:
-                                    radial-gradient(circle at top left, rgba(255, 215, 120, 0.35), transparent 36%),
-                                    linear-gradient(135deg, #003d35, #071314 58%, #c79a2b);
-                                border-radius: inherit;
-                            }
-
-                            .cs-img-fallback strong {
-                                display: block;
-                                font-size: 18px;
-                                margin-bottom: 8px;
-                            }
-
-                            .cs-img-fallback span {
-                                font-size: 13px;
-                                opacity: 0.9;
-                            }
-
-                            .cs-img-demo.is-error {
-                                display: none;
-                            }
-
-                            .cs-img-demo.is-error+.cs-img-fallback {
-                                display: grid;
-                            }
-
-                            .cs-badge {
-                                z-index: 2;
-                            }
-                        </style>
-
                         <!-- Slide 1 -->
                         <div class="carousel-slide" role="group" aria-label="Slide 1 of 4">
                             <div class="cs-img-wrap">
@@ -199,7 +128,7 @@
                                     <li>Giải ngân nhanh trong 3–5 ngày</li>
                                     <li>Lãi suất cố định, không thả nổi</li>
                                 </ul>
-                                <button class="cs-cta" onclick="openCalc()" type="button">Tính khoản vay
+                                <button class="cs-cta" type="button">Tính khoản vay
                                     <span>→</span></button>
                             </div>
                         </div>
@@ -230,7 +159,7 @@
                                     <li>Đề xuất phương án tối ưu</li>
                                     <li>Tư vấn miễn phí, không ràng buộc</li>
                                 </ul>
-                                <button class="cs-cta" onclick="openCalc()" type="button">Tính khoản vay
+                                <button class="cs-cta" type="button">Tính khoản vay
                                     <span>→</span></button>
                             </div>
                         </div>
@@ -262,7 +191,7 @@
                                     <li>Cơ cấu lại khoản vay linh hoạt</li>
                                     <li>Giảm thiểu rủi ro phát sinh</li>
                                 </ul>
-                                <button class="cs-cta" onclick="openCalc()" type="button">Tính khoản vay
+                                <button class="cs-cta" type="button">Tính khoản vay
                                     <span>→</span></button>
                             </div>
                         </div>
@@ -293,7 +222,7 @@
                                     <li>Chuyên viên kinh nghiệm cao</li>
                                     <li>Phương án xử lý riêng biệt</li>
                                 </ul>
-                                <button class="cs-cta" onclick="openCalc()" type="button">Tính khoản vay
+                                <button class="cs-cta" type="button">Tính khoản vay
                                     <span>→</span></button>
                             </div>
                         </div>
@@ -635,7 +564,7 @@
                                         </a>
                                         <a href="https://zalo.me/0339123086" target="_blank" rel="noopener"
                                             class="card">
-                                            <div class="card-icon">Zalo</div>
+                                            <div class="card-icon-zalo">Zalo</div>
                                             <h3>Zalo</h3>
                                             <p>Nhắn tin trực tiếp để nhận hỗ trợ nhanh.</p>
                                         </a>
@@ -767,8 +696,7 @@
                         <p class="calc-panel-sub">KYFAN · Tính lãi phẳng · Kết quả tức thì</p>
                     </div>
                 </div>
-                <button class="calc-close-btn" onclick="closeCalc()" type="button"
-                    aria-label="Đóng máy tính khoản vay">✕</button>
+                <button class="calc-close-btn" type="button" aria-label="Đóng máy tính khoản vay">✕</button>
             </div>
 
             <div class="calc-body">
@@ -780,7 +708,7 @@
                         </label>
                         <div class="calc-input-wrap">
                             <input type="number" id="calcP" class="calc-input" value="" placeholder="Nhập số tiền..."
-                                min="1" step="1" oninput="onPrincipalChange()">
+                                min="1" step="1">
                             <span class="calc-input-unit">triệu đồng</span>
                         </div>
                         <div class="calc-hint">Ví dụ: 500 = vay 500 triệu đồng</div>
@@ -812,11 +740,11 @@
                 </div>
 
                 <div class="calc-action-row">
-                    <button class="calc-run-btn" id="calcRunBtn" onclick="kfCalc()" type="button" disabled>
+                    <button class="calc-run-btn" id="calcRunBtn" type="button" disabled>
                         <span class="calc-run-icon">⚡</span>
                         Tính khoản vay
                     </button>
-                    <button class="calc-reset-btn" id="calcResetBtn" onclick="resetCalc()" type="button">
+                    <button class="calc-reset-btn" id="calcResetBtn" type="button">
                         ↺ Làm mới
                     </button>
                 </div>
@@ -834,16 +762,15 @@
     <div class="news-overlay" id="newsOverlay" data-popup-overlay="news" aria-modal="true" role="dialog"
         aria-label="Chi tiết bài viết">
         <div class="news-popup" id="newsPopup">
-            <button class="news-popup-close" id="newsPopupClose" type="button" onclick="closeNews()"
-                aria-label="Đóng bài viết">✕</button>
+            <button class="news-popup-close" id="newsPopupClose" type="button" aria-label="Đóng bài viết">✕</button>
             <div class="news-popup-content" id="newsPopupContent"></div>
         </div>
     </div>
 
     <!-- ══ FLOATING CTA ════════════════════════════════════════════ -->
     <div class="floating-cta" aria-label="Liên hệ nhanh">
-        <button class="floating-cta__btn floating-cta__btn--calc floating-cta__btn--interest" onclick="openCalc()"
-            type="button" aria-label="Mở công cụ tính lãi suất KYFAN">
+        <button class="floating-cta__btn floating-cta__btn--calc floating-cta__btn--interest" type="button"
+            aria-label="Mở công cụ tính lãi suất KYFAN">
             <span class="floating-interest-icon" aria-hidden="true">%</span>
             <span class="floating-cta-text">Lãi Suất</span>
         </button>
@@ -864,7 +791,7 @@
     <div class="service-overlay" id="serviceOverlay" data-popup-overlay="service" aria-modal="true" role="dialog"
         aria-label="Chi tiết dịch vụ KYFAN">
         <div class="service-popup" id="servicePopup">
-            <button class="service-popup-close" id="servicePopupClose" type="button" onclick="closeService()"
+            <button class="service-popup-close" id="servicePopupClose" type="button"
                 aria-label="Đóng chi tiết dịch vụ">✕</button>
             <div class="service-popup-content" id="servicePopupContent"></div>
         </div>
